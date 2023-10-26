@@ -1,8 +1,8 @@
 <ul class="list">
     <li class="list_li"><button class="btn list_button" *ngIf="!logueado" (click)="open(login)">Sign in</button></li>
     <li class="list_li"><button class="btn list_button" *ngIf="!logueado" (click)="open(register)">Sign up</button></li>
-    <li class="list_li"><button class="btn list_button" *ngIf="logueado" (click)="open(register)">Your apis</button></li>
-    <li class="list_li"><button class="btn list_button" *ngIf="logueado" (click)="open(logOut)">Log out</button></li>
+    <li class="list_li"><a class="btn list_button" *ngIf="logueado" routerLink="/yourapis">Your apis</a></li>
+    <li class="list_li"><a class="btn list_button" *ngIf="logueado" routerLink="/" (click)="closeSesion()">Log out</a></li>
 </ul>
 
 <ng-template #login let-loginModal>
@@ -32,12 +32,17 @@
 	<div class="modal-body">
 		<form>
 			<div class="mb-3">
-				REGISTER
+				<form class="form_register" [formGroup]="formRegister">
+					Username: <input type="text" formControlName="username">
+					Password: <input type="password" formControlName="password">
+					Fullname: <input type="text" formControlName="fullname">
+					Email: <input type="email" formControlName="email">
+				</form>
             </div>
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="registerModal.close('Save click')">Register</button>
+		<button type="button" class="btn btn-outline-dark" (click)="onRegister(formRegister.value)">Register</button>
 	</div>
 </ng-template>
 

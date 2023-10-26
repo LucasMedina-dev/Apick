@@ -32,3 +32,8 @@ body{
     border-radius: 10px;
     border: solid 1px rgb(232, 232, 232);
 }
+.form_register{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
