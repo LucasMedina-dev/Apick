@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./api-data.component.scss']
 })
 export class ApiDataComponent {
-
+  
 }

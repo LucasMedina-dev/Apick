@@ -6,10 +6,12 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ApickComponent } from './apick/apick.component';
 import { SearcherComponent } from './searcher/searcher.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MainComponent } from './main/main.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiDataComponent } from './api-data/api-data.component';
+import { HomeComponent } from './home/home.component';
+import { YourApisComponent } from './your-apis/your-apis.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +19,10 @@ import { ApiDataComponent } from './api-data/api-data.component';
     NavBarComponent,
     ApickComponent,
     SearcherComponent,
-    MainComponent,
-    ApiDataComponent
+    ApiDataComponent,
+    HomeComponent,
+    YourApisComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
