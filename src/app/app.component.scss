@@ -1,0 +1,16 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1px solid lightblue;
+    .header_searcher{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+    }
+    .header_nav{
+        display: flex;
+        justify-content: flex-end;
+    }
+}

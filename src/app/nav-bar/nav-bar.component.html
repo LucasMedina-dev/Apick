@@ -1,0 +1,41 @@
+<ul class="list">
+    <li class="list_li"><button class="btn list_button" (click)="open(login)">Sign in</button></li>
+    <li class="list_li"><button class="btn list_button" (click)="open(register)">Sign up</button></li>
+</ul>
+
+<ng-template #login let-loginModal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="loginModal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+				<form [formGroup]="formUser">
+                    <input type="text" placeholder="User" formControlName="username">
+                    <input type="password" placeholder="Password" formControlName="password">
+                    <button type="submit" class="btn btn-outline-dark" (click)="onSubmit(formUser.value)">LogIn</button>
+                </form>
+            </div>
+		</form>
+	</div>
+</ng-template>
+
+
+<ng-template #register let-registerModal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="registerModal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+				REGISTER
+            </div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="registerModal.close('Save click')">Register</button>
+	</div>
+</ng-template>
+
