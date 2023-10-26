@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "server":"json-server --watch db.json",
+    "server": "json-server --watch db.json",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.2.5",
-    "@angular/cli": "^16.2.5",
+    "@angular/cli": "^16.2.8",
     "@angular/compiler-cli": "^16.2.0",
     "@angular/localize": "^16.2.0",
     "@types/jasmine": "~4.3.0",

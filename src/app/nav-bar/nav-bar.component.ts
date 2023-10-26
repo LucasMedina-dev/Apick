@@ -55,6 +55,8 @@ export class NavBarComponent implements OnInit{
 	onSubmit(data:any){
 		this.loginService.tryLogin(data.username, data.password).then((res)=>{
 			this.logueado=res
+			this.loginService.logueado=true;
+			this.loginService.username=data.username;
 		})
 	}
 	onRegister(data:any){
