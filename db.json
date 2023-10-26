@@ -1,0 +1,44 @@
+{
+    "account":
+    [{
+        "username":"lucasApick",
+        "password":"lucas"
+    },
+    {
+        "username":"nicoApick",
+        "password":"lucas"
+    }],
+    "api":[
+        {
+            "username":"lucasApick",
+            "title":"titulo de la api",
+            "imageUrl":"https://cdn-icons-png.flaticon.com/512/263/263100.png",
+            "description":"descripcion maximo 1000 letras",
+            "active":true,
+            "valoration":"Number, por cada voto se suma un punto",
+            "endpoint":["/tareas", "/trabajos"]
+        },
+        {
+            "username":"nicoApick",
+            "title":"titulo de la api",
+            "imageUrl":"https://cdn-icons-png.flaticon.com/512/263/263100.png",
+            "description":"descripcion maximo 1000 letras",
+            "active":true,
+            "valoration":"Number, por cada voto se suma un punto",
+            "endpoint":["/tareas", "/trabajos"]
+        }
+    
+    ],
+    "endpoints":[
+        {
+            "username":"lucasApick",
+            "title":"nombre de la api",
+            "endpoint":"/endpoint",
+            "docs":[
+                {
+                    "documentoJson":"no existe documentoJSON sino que la info esta en docs"
+                }
+            ]
+        }
+    ]
+}

@@ -9,20 +9,21 @@ import {  FormGroup,  FormControl, Validators} from '@angular/forms';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit{
-  closeResult = '';
-  formUser= new FormGroup({
-    'username':new FormControl('', Validators.required),
-    'password':new FormControl('', Validators.required),
-  })
-  username= new FormControl('', Validators.required)
-  password= new FormControl('', Validators.required)
+	logueado:Boolean=false;
+	closeResult = '';
+	formUser= new FormGroup({
+		'username':new FormControl('', Validators.required),
+		'password':new FormControl('', Validators.required),
+	})
+	username= new FormControl('', Validators.required)
+	password= new FormControl('', Validators.required)
 
 	constructor(private modalService: NgbModal, private loginService: LoginService) {
-    
-  }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+
+	}
+	ngOnInit(): void {
+
+	}
 
 	open(content:any) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
@@ -45,8 +46,13 @@ export class NavBarComponent implements OnInit{
 		}
 	}
   onSubmit(data:any){
-    const status= this.loginService.tryLogin(data.username, data.password)
-	console.log(status.subscribe(res=>console.log(res)))
-  }
 
+	this.loginService.tryLogin(data.username, data.password).then((res)=>{
+		this.logueado=res
+	})
+  }
+  closeSesion(){
+	this.loginService.closeSesion();
+	this.logueado=this.loginService.logueado
+  }
 }

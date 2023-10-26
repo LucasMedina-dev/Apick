@@ -1,6 +1,8 @@
 <ul class="list">
-    <li class="list_li"><button class="btn list_button" (click)="open(login)">Sign in</button></li>
-    <li class="list_li"><button class="btn list_button" (click)="open(register)">Sign up</button></li>
+    <li class="list_li"><button class="btn list_button" *ngIf="!logueado" (click)="open(login)">Sign in</button></li>
+    <li class="list_li"><button class="btn list_button" *ngIf="!logueado" (click)="open(register)">Sign up</button></li>
+    <li class="list_li"><button class="btn list_button" *ngIf="logueado" (click)="open(register)">Your apis</button></li>
+    <li class="list_li"><button class="btn list_button" *ngIf="logueado" (click)="open(logOut)">Log out</button></li>
 </ul>
 
 <ng-template #login let-loginModal>
@@ -39,3 +41,19 @@
 	</div>
 </ng-template>
 
+<ng-template #logOut let-logoutModal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="logoutModal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+				Desea cerrar sesion?
+            </div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark"  (click)="closeSesion()" >Cerrar sesion</button>
+	</div>
+</ng-template>

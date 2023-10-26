@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MainComponent } from './main/main.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { ApiDataComponent } from './api-data/api-data.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavBarComponent,
     ApickComponent,
     SearcherComponent,
-    MainComponent
+    MainComponent,
+    ApiDataComponent
   ],
   imports: [
     BrowserModule,

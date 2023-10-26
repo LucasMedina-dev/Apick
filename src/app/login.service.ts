@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,15 +7,25 @@ import { Observable } from 'rxjs';
 })
 
 export class LoginService {
+  logueado=false;
   constructor(private http: HttpClient){}
-  tryLogin(username:String, password:String):Observable<any>{
-    const url = '/login'; // Reemplaza por la URL de tu servidor
-    const data = {
-      username: username,
-      password: password
-    };
+
+  tryLogin(user:String, pass:String):Promise<any>{
+    const url = 'http://localhost:3000/api/login'; // Reemplaza por la URL de tu servidor
+    const data = {username: user,password: pass};
     console.log(data)
-    return this.http.post<any>(url,data)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.post<any>(url,data, httpOptions).toPromise();
+  }
+
+
+  closeSesion(){
+    this.logueado=false;
   }
 }
 
