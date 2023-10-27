@@ -13,7 +13,7 @@
 	<div class="modal-body">
 		<form>
 			<div class="mb-3">
-				<form [formGroup]="formUser">
+				<form [formGroup]="formUser" class="form_login">
                     <input type="text" placeholder="User" formControlName="username">
                     <input type="password" placeholder="Password" formControlName="password">
                     <button type="submit" class="btn btn-outline-dark" (click)="onSubmit(formUser.value)">LogIn</button>

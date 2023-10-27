@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { ApickComponent } from './apick/apick.component';
+import { TitleComponent } from './title/title.component';
 import { SearcherComponent } from './searcher/searcher.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +18,7 @@ import { MyapickComponent } from './myapick/myapick.component';
   declarations: [
     AppComponent,
     NavBarComponent,
-    ApickComponent,
+    TitleComponent,
     SearcherComponent,
     ApiDataComponent,
     HomeComponent,

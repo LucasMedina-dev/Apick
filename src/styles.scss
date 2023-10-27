@@ -1,71 +1,149 @@
-@import 'bootstrap/scss/bootstrap';
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'Cairo Play', sans-serif;
+@import "bootstrap/scss/bootstrap";
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Cairo Play", sans-serif;
 }
 
-
-body{
-    margin:0 10%  0 10% ;
+body {
+  margin: 0 10% 0 10%;
 }
-.header{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 8px;
-    //border-bottom: 1px solid lightblue;
-    .header_searcher{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-
-    }
-    .header_nav{
-        display: flex;
-        justify-content: flex-end;
-    }
-}
-.main{
-    display: flex;
-    width: 100%;
-    height: 90vh;
-    border-radius: 10px;
-    border: solid 1px rgb(232, 232, 232);
-    .main_apis{
-        width: 25%;
-        padding: 0 10px;
-        border-right: solid 1px lightgray;
-
-    }
-    .apis_create{
-        width: 100%;
-        height: 50px;
-        background-color: #F4FFF1;
-        border: solid 1px gray;
-    }
-}
-.form_register{
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  //border-bottom: 1px solid lightblue;
+  .header_searcher {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .header_nav {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
-
-.list_button:hover{
-    background-color: black;
-    color: white;
-}
-.apick{
+.main {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+  border-radius: 10px;
+  border: solid 1px rgb(232, 232, 232);
+  .main_apis {
+    width: 25%;
+    padding: 0 10px;
+    border-right: solid 1px lightgray;
+  }
+  .apis_create {
     width: 100%;
     height: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    border-bottom: solid 1px lightgray;
-    .apick_img{
-        height: 100%;
+    background-color: #f4fff1;
+    border: solid 1px gray;
+    margin-right: 0;
+    position: relative;
+    .apis_arrow {
+      position: absolute;
+      right: 10px;
     }
-    .apick_title{
-        font-size: 1rem;
+    &:hover {
+      background-color: #c4ffb4;
+    }
+  }
+}
+.form_register {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.form_login {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+.list_button:hover {
+  background-color: black;
+  color: white;
+}
+.myapick {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  margin:0 30px 20px 15px;
+  border-bottom: solid 1px lightgray;
+  padding: 20px 200px 20px 10px;
+  overflow: hidden;
+  .myapick_image{
+    display: flex;
+    height: 100%;
+  }
+  .myapick_title {
+    font-size: 1rem;
+  }
+  .apick_text{
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    
+  }
+}
+.apick {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  margin:0 30px 20px 15px;
+  border-bottom: solid 1px lightgray;
+  padding: 20px 200px 20px 10px;
+  overflow: hidden;
+  .apick_image{
+    height: 100%;
+  }
+  .apick_title {
+    font-size: 1rem;
+  }
+  .apick_text{
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    overflow: hidden;
+    
+  }
+}
+.searcher {
+  .searcher_input {
+    width: 300px;
+    padding: 5px 20px;
+    border: solid 0.8px gray;
+    &:hover {
+      background-color: #f4fff1;
+    }
+    &:focus {
+      background-color: #f4fff1;
+
+      outline: solid 0.2px lightblue;
+    }
+  }
+  .searcher_button {
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}
+.title {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-weight: inherit;
+    span{
+      font-size: 3rem;
     }
 }
