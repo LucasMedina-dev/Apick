@@ -10,6 +10,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 })
 export class YourApisComponent implements OnInit {
   data: any;
+  creator=false;
   faChevronRight=faChevronRight;
   constructor(
     private apiManager: ApimanagerService,
@@ -23,6 +24,9 @@ export class YourApisComponent implements OnInit {
       .then((data: any) => {
         this.data = data;
       });
+  }
+  openCreator(){
+    this.creator=true;
   }
   ngOnInit(): void {
     this.searchMyApicks();

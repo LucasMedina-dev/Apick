@@ -12,7 +12,6 @@ body {
   display: flex;
   justify-content: space-between;
   padding-bottom: 8px;
-  //border-bottom: 1px solid lightblue;
   .header_searcher {
     display: flex;
     flex-direction: column;
@@ -24,7 +23,6 @@ body {
   }
   .header_title {
     margin-left: 10px;
-    padding-top: 10px;
   }
 }
 .main {
@@ -34,24 +32,46 @@ body {
   border-radius: 10px;
   border: solid 1px rgb(232, 232, 232);
   .main_apis {
-    width: 25%;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     padding: 0 10px;
     border-right: solid 1px lightgray;
   }
-  .apis_create {
-    width: 100%;
-    height: 50px;
-    background-color: #f4fff1;
-    border: solid 1px gray;
-    margin-right: 0;
-    position: relative;
-    .apis_arrow {
-      position: absolute;
-      right: 10px;
+
+  .main_valorated {
+    display: flex;
+    width: 30%;
+  }
+  .main_apicks {
+    width: 25%;
+    padding: 15px 10px 0 10px;
+    border-right: solid 1px lightgray;
+    .apis_create {
+      width: 100%;
+      height: 50px;
+      background-color: #f4fff1;
+      border: solid 1px gray;
+      position: relative;
+      margin-top: 10px;
+      .apis_arrow {
+        position: absolute;
+        right: 10px;
+      }
+      &:hover {
+        background-color: #c4ffb4;
+      }
     }
-    &:hover {
-      background-color: #c4ffb4;
-    }
+  }
+  .main_form {
+    width: 50%;
+    border-right: solid 1px lightgray;
+    padding: 0px 4%;
+  }
+  .main_json {
+    width: 25%;
   }
 }
 .form_register {
@@ -64,6 +84,10 @@ body {
   flex-direction: column;
   width: 50%;
   margin: auto;
+  padding-bottom: 10px;
+  .form_input {
+    margin-bottom: 10px;
+  }
 }
 
 .list_button:hover {
@@ -92,15 +116,14 @@ body {
   }
 }
 .apick {
-  width: 100%;
-  height: 200px;
+  height: 180px;
   display: flex;
   position: relative;
   justify-content: flex-start;
   align-items: center;
-  margin: 0 30px 20px 15px;
+  margin: 0 30px 20px 10px;
   border-bottom: solid 1px lightgray;
-  padding: 20px 200px 20px 10px;
+  padding: 20px 60px 20px 0px;
   overflow: hidden;
   .apick_image {
     height: 100%;
@@ -111,19 +134,19 @@ body {
   }
   .apick_text {
     margin-left: 20px;
-    
+    width: 100%;
     display: flex;
     flex-direction: column;
     max-height: 100%;
     overflow: hidden;
   }
-  .apick_description{
-    font-size: .9rem;
+  .apick_description {
+    font-size: 0.9rem;
   }
-  .apick_button{
+  .apick_button {
     text-decoration: none;
     color: inherit;
-    font-weight: inherit;
+    font-size: 1.5rem;
   }
 }
 .searcher {
@@ -156,21 +179,23 @@ body {
     font-size: 3rem;
   }
 }
-.main{
-  .main_apis{
-    width: 70%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+
+.creator {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+  border-bottom: solid 1px lightgray;
+  .creator_input {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    background-color: #f4fff1;
+    border: solid 1px lightgray;
   }
-  .main_valorated{
-    display: flex;
-    width: 30%;
+  textarea {
+    resize: none;
+    height: 100px;
   }
-  .main_apicks{
-    width: 30%;
-    padding: 0 10px;
-    border-right: solid 1px lightgray;
+  .creator_endpoint{
+    background-color:lightgreen;
   }
 }

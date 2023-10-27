@@ -23,6 +23,7 @@ export class ApimanagerService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
     })}
+    
     return this.http.get<any>(url, httpOptions).toPromise();
   }
 /*

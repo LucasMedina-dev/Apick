@@ -7,15 +7,15 @@
 
 <ng-template #login let-loginModal>
 	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<h4 class="modal-title" id="modal-basic-title">Get log in!</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="loginModal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
 		<form>
 			<div class="mb-3">
 				<form [formGroup]="formUser" class="form_login">
-                    <input type="text" placeholder="User" formControlName="username">
-                    <input type="password" placeholder="Password" formControlName="password">
+                    <input class="form_input form-control" type="text" placeholder="User" formControlName="username">
+                    <input class="form_input form-control" type="password" placeholder="Password" formControlName="password">
                     <button type="submit" class="btn btn-outline-dark" (click)="onSubmit(formUser.value)">LogIn</button>
                 </form>
             </div>
@@ -26,17 +26,17 @@
 
 <ng-template #register let-registerModal >
 	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<h4 class="modal-title" id="modal-basic-title">Create a new user!</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="registerModal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
 		<form>
 			<div class="mb-3">
 				<form class="form_register" [formGroup]="formRegister">
-					Username: <input type="text" formControlName="username">
-					Password: <input type="password" formControlName="password">
-					Fullname: <input type="text" formControlName="fullname">
-					Email: <input type="email" formControlName="email">
+					Username: <input class="form-control" type="text" formControlName="username">
+					Password: <input class="form-control" type="password" formControlName="password">
+					Fullname: <input class="form-control" type="text" formControlName="fullname">
+					Email: <input class="form-control" type="email" formControlName="email">
 				</form>
             </div>
 		</form>
@@ -48,7 +48,7 @@
 
 <ng-template #logOut let-logoutModal>
 	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<h4 class="modal-title" id="modal-basic-title">Log out</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="logoutModal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">

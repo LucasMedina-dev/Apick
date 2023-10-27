@@ -14,6 +14,7 @@ import { YourApisComponent } from './your-apis/your-apis.component';
 import { HeaderComponent } from './header/header.component';
 import { MyapickComponent } from './myapick/myapick.component';
 import { ApiviewComponent } from './apiview/apiview.component';
+import { CreateApiComponent } from './create-api/create-api.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ApiviewComponent } from './apiview/apiview.component';
     YourApisComponent,
     HeaderComponent,
     MyapickComponent,
-    ApiviewComponent
+    ApiviewComponent,
+    CreateApiComponent
   ],
   imports: [
     BrowserModule,
