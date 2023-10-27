@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TitleComponent } from './title.component';
+import { ApiviewComponent } from './apiview.component';
 
-describe('TitleComponent', () => {
-  let component: TitleComponent;
-  let fixture: ComponentFixture<TitleComponent>;
+describe('ApiviewComponent', () => {
+  let component: ApiviewComponent;
+  let fixture: ComponentFixture<ApiviewComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TitleComponent]
+      declarations: [ApiviewComponent]
     });
-    fixture = TestBed.createComponent(TitleComponent);
+    fixture = TestBed.createComponent(ApiviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

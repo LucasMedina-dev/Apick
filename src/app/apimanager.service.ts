@@ -5,11 +5,20 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ApimanagerService {
-  data:any;
+  private data:any;
   constructor(private http: HttpClient) { }
 
   getMyApicks(username:string):Promise<any>{
     const url = `http://localhost:3000/api/apick?username=${username}`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+    })}
+    return this.http.get<any>(url, httpOptions).toPromise();
+  }
+
+  getAllApicks(){
+    const url = `http://localhost:3000/api/apick?active=true`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

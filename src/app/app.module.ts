@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { YourApisComponent } from './your-apis/your-apis.component';
 import { HeaderComponent } from './header/header.component';
 import { MyapickComponent } from './myapick/myapick.component';
+import { ApiviewComponent } from './apiview/apiview.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MyapickComponent } from './myapick/myapick.component';
     HomeComponent,
     YourApisComponent,
     HeaderComponent,
-    MyapickComponent
+    MyapickComponent,
+    ApiviewComponent
   ],
   imports: [
     BrowserModule,

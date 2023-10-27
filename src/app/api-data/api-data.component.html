@@ -1,6 +1,6 @@
-<img class="apick_image" src="https://cdn-icons-png.flaticon.com/512/263/263100.png" alt=" apic">
+<img class="apick_image" src={{apickData.imageUrl}} alt=" apic">
 <div class="apick_text">
-    <h2>Titulo</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore saepe, ut nisi laudantium dignissimos quam quas praesentium explicabo, earum ex temporibus nulla error eos. Rem incidunt tempore adipisci. Soluta, aperiam.</p>
+    <h2 class="apick_title">{{apickData.title}}</h2>
+    <p class="apick_description">{{apickData.description}}</p>
 </div>
-<button><a routerLink="/otrolugar"></a></button>
+<button class="btn apick_button"><a routerLink={{apickData.url}}><fa-icon [icon]="faChevronRight"></fa-icon></a></button>

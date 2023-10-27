@@ -22,7 +22,7 @@ body {
     display: flex;
     justify-content: flex-end;
   }
-  .header_title{
+  .header_title {
     margin-left: 10px;
     padding-top: 10px;
   }
@@ -96,8 +96,7 @@ body {
   height: 200px;
   display: flex;
   position: relative;
-  align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin: 0 30px 20px 15px;
   border-bottom: solid 1px lightgray;
@@ -107,13 +106,24 @@ body {
     height: 100%;
   }
   .apick_title {
-    font-size: 1rem;
+    font-size: 2rem;
+    padding-bottom: 30px;
   }
   .apick_text {
+    margin-left: 20px;
+    
     display: flex;
     flex-direction: column;
     max-height: 100%;
     overflow: hidden;
+  }
+  .apick_description{
+    font-size: .9rem;
+  }
+  .apick_button{
+    text-decoration: none;
+    color: inherit;
+    font-weight: inherit;
   }
 }
 .searcher {
@@ -144,5 +154,18 @@ body {
   font-weight: inherit;
   span {
     font-size: 3rem;
+  }
+}
+.main{
+  .main_apis{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .main_valorated{
+    display: flex;
+    width: 30%;
   }
 }

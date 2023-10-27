@@ -1,8 +1,8 @@
 <main class="main">
-    <div id="normalApis" >
-        <app-api-data class="apick"></app-api-data>
+    <div class="main_apis" >
+        <app-api-data class="apick" *ngFor="let api of apick" [apickData]="api"></app-api-data>
     </div>
-    <div id="valoratedApis">
+    <div class="main_valorated">
     
     </div>
 </main>
