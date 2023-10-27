@@ -22,6 +22,10 @@ body {
     display: flex;
     justify-content: flex-end;
   }
+  .header_title{
+    margin-left: 10px;
+    padding-top: 10px;
+  }
 }
 .main {
   display: flex;
@@ -73,22 +77,18 @@ body {
   position: relative;
   justify-content: space-between;
   align-items: center;
-  margin:0 30px 20px 15px;
   border-bottom: solid 1px lightgray;
-  padding: 20px 200px 20px 10px;
   overflow: hidden;
-  .myapick_image{
-    display: flex;
+  .myapick_image {
     height: 100%;
   }
   .myapick_title {
     font-size: 1rem;
   }
-  .apick_text{
+  .myapick_text {
     display: flex;
     flex-direction: column;
     max-height: 100%;
-    
   }
 }
 .apick {
@@ -99,22 +99,21 @@ body {
   align-items: flex-start;
   justify-content: space-between;
   align-items: center;
-  margin:0 30px 20px 15px;
+  margin: 0 30px 20px 15px;
   border-bottom: solid 1px lightgray;
   padding: 20px 200px 20px 10px;
   overflow: hidden;
-  .apick_image{
+  .apick_image {
     height: 100%;
   }
   .apick_title {
     font-size: 1rem;
   }
-  .apick_text{
+  .apick_text {
     display: flex;
     flex-direction: column;
     max-height: 100%;
     overflow: hidden;
-    
   }
 }
 .searcher {
@@ -139,11 +138,11 @@ body {
   }
 }
 .title {
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    font-weight: inherit;
-    span{
-      font-size: 3rem;
-    }
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  font-weight: inherit;
+  span {
+    font-size: 3rem;
+  }
 }
