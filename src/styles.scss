@@ -31,6 +31,18 @@ body{
     height: 90vh;
     border-radius: 10px;
     border: solid 1px rgb(232, 232, 232);
+    .main_apis{
+        width: 25%;
+        padding: 0 10px;
+        border-right: solid 1px lightgray;
+
+    }
+    .apis_create{
+        width: 100%;
+        height: 50px;
+        background-color: #F4FFF1;
+        border: solid 1px gray;
+    }
 }
 .form_register{
     display: flex;
@@ -41,4 +53,19 @@ body{
 .list_button:hover{
     background-color: black;
     color: white;
+}
+.apick{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: solid 1px lightgray;
+    .apick_img{
+        height: 100%;
+    }
+    .apick_title{
+        font-size: 1rem;
+    }
 }

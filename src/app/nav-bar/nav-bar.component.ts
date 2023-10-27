@@ -57,6 +57,7 @@ export class NavBarComponent implements OnInit{
 			this.logueado=res
 			this.loginService.logueado=true;
 			this.loginService.username=data.username;
+			this.modalService.dismissAll()
 		})
 	}
 	onRegister(data:any){

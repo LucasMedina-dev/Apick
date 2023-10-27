@@ -12,6 +12,7 @@ import { ApiDataComponent } from './api-data/api-data.component';
 import { HomeComponent } from './home/home.component';
 import { YourApisComponent } from './your-apis/your-apis.component';
 import { HeaderComponent } from './header/header.component';
+import { MyapickComponent } from './myapick/myapick.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HeaderComponent } from './header/header.component';
     ApiDataComponent,
     HomeComponent,
     YourApisComponent,
-    HeaderComponent
+    HeaderComponent,
+    MyapickComponent
   ],
   imports: [
     BrowserModule,
