@@ -40,7 +40,6 @@ body {
     padding: 0 10px;
     border-right: solid 1px lightgray;
   }
-
   .main_valorated {
     display: flex;
     width: 30%;
@@ -69,9 +68,15 @@ body {
     width: 50%;
     border-right: solid 1px lightgray;
     padding: 0px 4%;
+    
   }
   .main_json {
     width: 25%;
+  }
+  .main_view{
+    border-right: solid 1px lightgray;
+    padding: 0 15px;
+    max-width: 60%;
   }
 }
 .form_register {
@@ -195,7 +200,8 @@ body {
     resize: none;
     height: 100px;
   }
-  .creator_endpoint{
-    background-color:lightgreen;
-  }
+  
+}
+.endpoints{
+  margin-top: 20px;
 }

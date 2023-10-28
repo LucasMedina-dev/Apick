@@ -26,6 +26,15 @@ export class ApimanagerService {
     
     return this.http.get<any>(url, httpOptions).toPromise();
   }
+  getApickById(id:string){
+    const url = `http://localhost:3000/api/apick?_id=${id}`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+    })}
+    
+    return this.http.get<any>(url, httpOptions).toPromise();
+  }
 /*
   registerApi(data:any){
     const url = 'http://localhost:3000/api/apick'; // Reemplaza por la URL de tu servidor
