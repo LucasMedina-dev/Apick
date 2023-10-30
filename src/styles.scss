@@ -44,10 +44,8 @@ body {
   background: rgba(156, 156, 156, 0.7);
   .main_apis {
     width: 70%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    overflow: scroll;
+    overflow-x: hidden;
     padding: 0 10px;
     border-right: solid 1px lightgray;
   }
