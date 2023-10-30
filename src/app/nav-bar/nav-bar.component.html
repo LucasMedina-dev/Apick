@@ -14,9 +14,9 @@
 		<form>
 			<div class="mb-3">
 				<form [formGroup]="formUser" class="form_login">
-                    <input class="form_input form-control" type="text" placeholder="User" formControlName="username">
-                    <input class="form_input form-control" type="password" placeholder="Password" formControlName="password">
-                    <button type="submit" class="btn btn-outline-dark" (click)="onSubmit(formUser.value)">LogIn</button>
+                    <input class="form_input form-control" type="text" placeholder="User" formControlName="username" [class.active]="isActive" (input)="resetForm()">
+                    <input class="form_input form-control" type="password" placeholder="Password" formControlName="password" [class.active]="isActive" (input)="resetForm()">
+                    <button type="submit" class="btn btn-outline-dark" (click)="onSubmit(formUser.value)" [disabled]="!formUser.valid">LogIn</button>
                 </form>
             </div>
 		</form>
@@ -42,7 +42,7 @@
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="onRegister(formRegister.value)">Register</button>
+		<button type="button" class="btn btn-outline-dark" (click)="onRegister(formRegister.value)" [disabled]="!formRegister.valid">Register</button>
 	</div>
 </ng-template>
 

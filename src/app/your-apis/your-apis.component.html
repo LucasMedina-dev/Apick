@@ -5,32 +5,17 @@
       <app-myapick *ngFor="let api of data" [data]="api"></app-myapick>
     </div>
     <button class="btn apis_create" (click)="openCreator()">
-      Create new Apick!<fa-icon
-        class="apis_arrow"
-        [icon]="faChevronRight"
-      ></fa-icon>
+      Create new Apick!<fa-icon class="apis_arrow" [icon]="faChevronRight"></fa-icon>
     </button>
   </div>
   <div class="main_form">
-    <form class="creator"> 
-      <input
-        class="creator_input form-control"
-        type="text"
-        placeholder="Title for your apick!"
-        formControlName="title"
-      />
-      <textarea
-        class="creator_input form-control"
-        type="text"
-        placeholder="Description for your apick!"
-        formControlName="description"
-      ></textarea>
-      <input
-        class="creator_input form-control"
-        type="text"
-        placeholder="Link to a image icon"
-        formControlName="image"
-      />
+    <form class="creator" [formGroup]="formCreator">
+      <input class="creator_input form-control" type="text" placeholder="Title for your apick!"
+        formControlName="title" />
+      <textarea class="creator_input form-control" type="text" placeholder="Description for your apick!"
+        formControlName="description"></textarea>
+      <input class="creator_input form-control" type="text" placeholder="Link to a image icon"
+        formControlName="image" />
     </form>
     <div class="creator_endpoint">
       <h4 class="creator_title">CREATED ENDPOINTS</h4>
@@ -39,5 +24,10 @@
       </div>
     </div>
   </div>
-  <div class="main_json"></div>
+  <div class="main_json">Aca van los Json
+    <form [formGroup]="formJson">
+      <textarea formControlName="docs"></textarea>
+      <button type="button" (click)="jsonValidator(formJson.value.docs)">Enviar</button>
+    </form>
+  </div>
 </main>

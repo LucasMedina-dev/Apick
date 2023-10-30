@@ -11,16 +11,17 @@ import {  FormGroup,  FormControl, Validators} from '@angular/forms';
 export class NavBarComponent implements OnInit{
 	logueado:Boolean=false;
 	closeResult = '';
+	isActive:boolean = false;
 
 	formUser= new FormGroup({
 		'username':new FormControl('', Validators.required),
-		'password':new FormControl('', Validators.required),
+		'password':new FormControl('', Validators.required)
 	})
 	formRegister= new FormGroup({
 		'username':new FormControl('', Validators.required),
 		'password':new FormControl('', Validators.required),
 		'email':new FormControl('', Validators.required),
-		'fullname':new FormControl('', Validators.required),
+		'fullname':new FormControl('', Validators.required)
 	})
 
 
@@ -53,20 +54,32 @@ export class NavBarComponent implements OnInit{
 		}
 	}
 	onSubmit(data:any){
-		this.loginService.tryLogin(data.username, data.password).then((res)=>{
+		this.loginService.tryLogin(data.username, data.password)
+		.then((res)=>{
 			this.logueado=res
 			this.loginService.logueado=true;
 			this.loginService.username=data.username;
 			this.modalService.dismissAll()
 		})
+		.catch((res)=>{
+			this.isActive = true;	
+		})
 	}
 	onRegister(data:any){
-		this.loginService.tryRegister(data).then((res)=>{
+		this.loginService.tryRegister(data)
+		.then((res)=>{
 			console.log(res)
+		})
+		.catch((res)=>{
+			alert('Error al registro');
 		})
 	}
 	closeSesion(){
 		this.loginService.closeSesion();
 		this.logueado=this.loginService.logueado
+	}
+
+	resetForm(){
+		this.isActive = false;
 	}
 }
