@@ -37,14 +37,14 @@ export class ApimanagerService {
     
     return this.http.get<any>(url, httpOptions).toPromise();
   }
-  getApickById(id:string){
+  getApickById(id:string):Observable<any>{
     const url = `http://localhost:3000/api/apick?_id=${id}`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
     })}
     
-    return this.http.get<any>(url, httpOptions).toPromise();
+    return this.http.get<any>(url, httpOptions);
   }
 
   
