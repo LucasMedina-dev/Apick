@@ -35,7 +35,9 @@ export class AuthService {
     return this.http.post<any>(url,data, httpOptions).toPromise();
   }
 
-
+  getUsername(){
+    return this.username;
+  }
   closeSesion(){
     this.logueado=false;
   }

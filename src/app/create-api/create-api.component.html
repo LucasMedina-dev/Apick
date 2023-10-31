@@ -1,5 +1,5 @@
 <div class="main_form">
-  <form class="creator" [formGroup]="formCreator">
+  <form class="creator_data" [formGroup]="formCreator">
     <input
       class="creator_input form-control"
       type="text"
@@ -21,15 +21,27 @@
   </form>
   <div class="creator_endpoint">
     <h4 class="creator_title">CREATED ENDPOINTS</h4>
-    <div class="creator_">Aca iran los endpoints</div>
+    <div>
+      <p *ngFor="let endpoint of apick.endpoint">{{ endpoint.endpoint }}</p>
+    </div>
   </div>
 </div>
 <div class="main_json">
-  Aca van los Json
-  <form [formGroup]="formJson">
+  <form [formGroup]="formJson" class="creator_json">
+    <input
+      class="creator_input form-control"
+      type="text"
+      formControlName="endpoint"
+      (input)="validateEndpointName()"
+      [class.active]="endpointExists"
+    />
     <textarea formControlName="docs"></textarea>
-    <button type="button" (click)="jsonValidator(formJson.value.docs)">
-      Enviar
+    <button
+      class="creator_button"
+      type="button"
+      (click)="saveJsonData(formJson.value.docs)"
+    >
+      Confirmar
     </button>
   </form>
 </div>

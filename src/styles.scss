@@ -4,10 +4,9 @@
   padding: 0;
   font-family: "Space Grotesk", sans-serif;
 }
-html{
+html {
   background-image: url(https://p4.wallpaperbetter.com/wallpaper/607/724/1017/material-design-abstract-hd-wallpaper-preview.jpg);
   background-size: cover;
-  
 }
 body {
   margin: 0 5% 0 5%;
@@ -75,16 +74,16 @@ body {
     width: 60%;
     border-right: solid 1px lightgray;
     padding: 0px 4%;
-    
   }
   .main_json {
+    width: 40%;
   }
-  .main_view{
+  .main_view {
     border-right: solid 1px lightgray;
     padding: 0 15px;
     max-width: 60%;
   }
-  .main_creator{
+  .main_creator {
     display: flex;
     width: 100%;
   }
@@ -140,7 +139,7 @@ body {
   border-bottom: solid 1px lightgray;
   padding: 20px 60px 20px 0px;
   overflow: hidden;
-  background-color: rgba(232, 232, 232,0.7);
+  background-color: rgba(232, 232, 232, 0.7);
   border-radius: 10px;
   .apick_image {
     height: 100%;
@@ -199,32 +198,42 @@ body {
   }
 }
 
-.creator {
+//CREATOR IN YOUR APIS --- CREATOR IN YOUR APIS --- CREATOR IN YOUR APIS
+
+.creator_data {
   display: flex;
   flex-direction: column;
   padding: 15px 0;
   border-bottom: solid 1px lightgray;
-  .creator_input {
-    padding: 5px 10px;
-    margin-bottom: 5px;
-    background-color: #f4fff1;
-    border: solid 1px lightgray;
-  }
   textarea {
     resize: none;
     height: 100px;
   }
-  
 }
-.endpoints{
+.creator_input {
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  background-color: #f4fff1;
+  border: solid 1px lightgray;
+}
+.creator_json {
+  width: 100%;
+  textarea {
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-size: 0.75em;
+  }
+}
+.endpoints {
   margin-top: 20px;
 }
 
-.active{
-  background-color: rgba($color: red, $alpha: 0.5);
+.active {
+  background-color: rgb(255, 194, 194);
 }
 
-.modal-backdrop{
+.modal-backdrop {
   --bs-backdrop-opacity: 0.9;
   left: -200px;
   width: 200vw;

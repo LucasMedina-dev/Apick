@@ -30,7 +30,7 @@ import { ResponseComponent } from './response/response.component';
     MyapickComponent,
     ApiviewComponent,
     CreateApiComponent,
-    ResponseComponent,
+    ResponseComponent
   ],
   imports: [
     BrowserModule,
