@@ -10,4 +10,5 @@ export interface ApickStruct{
 interface Endpoint{
     endpoint:string;
     active:boolean;
+    methods:Array<String>;
 }

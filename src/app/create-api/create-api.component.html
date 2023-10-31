@@ -22,11 +22,13 @@
   <div class="creator_endpoint">
     <h4 class="creator_title">CREATED ENDPOINTS</h4>
     <div>
-      <p *ngFor="let endpoint of apick.endpoint">{{ endpoint.endpoint }}</p>
+      <p *ngFor="let endpoint of apickSave.endpoint">{{ endpoint.endpoint }}</p>
     </div>
   </div>
+  <button (click)="uploadApick()">CONFIRMAR APICK</button>
 </div>
 <div class="main_json">
+  <h4 class="creator_title text-center">JSON DATA</h4>
   <form [formGroup]="formJson" class="creator_json">
     <input
       class="creator_input form-control"
