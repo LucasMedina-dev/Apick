@@ -10,7 +10,7 @@ html{
   
 }
 body {
-  margin: 0 10% 0 10%;
+  margin: 0 5% 0 5%;
   background-color: #ffffff00;
   backdrop-filter: opacity(0);
   backdrop-filter: blur(10px);
@@ -20,7 +20,6 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 8px;
   flex-wrap: wrap;
   .header_searcher {
     display: flex;
