@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApimanagerService } from '../apimanager.service';
-import { LoginService } from '../auth.service';
+import { AuthService } from '../auth.service';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-your-apis',
@@ -17,22 +16,14 @@ export class YourApisComponent implements OnInit {
 
   constructor(
     private apiManager: ApimanagerService,
-    private loginService: LoginService
+    private authService: AuthService
   ){}
 
-  formCreator= new FormGroup({
-		'title':new FormControl('', Validators.required),
-		'description':new FormControl('', Validators.required),
-		'image':new FormControl('', Validators.required)
-	})
-
-  formJson= new FormGroup({
-		'docs':new FormControl('', Validators.required)
-	})
+  
 
   searchMyApicks() {
     this.apiManager
-      .getMyApicks(this.loginService.username)
+      .getMyApicks(this.authService.username)
       .then((data: any) => {
         this.data = data;
       });
@@ -44,24 +35,9 @@ export class YourApisComponent implements OnInit {
     this.searchMyApicks();
   }
 
-  jsonValidator(text:any){
-    //console.log(this.formJson.value);
-    if(this.jsonValid(text)){
-      console.log(JSON.parse(text));
-    }else{
-      alert('error en el json');
-    }
+  
 
-  }
-
-  jsonValid(jsonString: string): boolean {
-    try {
-      JSON.parse(jsonString);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
+  
 }
 
 

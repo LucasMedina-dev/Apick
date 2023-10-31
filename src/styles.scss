@@ -44,7 +44,6 @@ body {
   background: rgba(156, 156, 156, 0.7);
   .main_apis {
     width: 70%;
-    overflow: scroll;
     overflow-x: hidden;
     padding: 0 10px;
     border-right: solid 1px lightgray;
@@ -74,18 +73,21 @@ body {
     }
   }
   .main_form {
-    width: 50%;
+    width: 60%;
     border-right: solid 1px lightgray;
     padding: 0px 4%;
     
   }
   .main_json {
-    width: 25%;
   }
   .main_view{
     border-right: solid 1px lightgray;
     padding: 0 15px;
     max-width: 60%;
+  }
+  .main_creator{
+    display: flex;
+    width: 100%;
   }
 }
 .form_register {

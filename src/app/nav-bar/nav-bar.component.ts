@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../auth.service';
+import { AuthService } from '../auth.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {  FormGroup,  FormControl, Validators} from '@angular/forms';
 
@@ -26,7 +26,7 @@ export class NavBarComponent implements OnInit{
 
 
 
-	constructor(private modalService: NgbModal, private loginService: LoginService) {
+	constructor(private modalService: NgbModal, private authService: AuthService) {
 
 	}
 	ngOnInit(): void {
@@ -54,11 +54,11 @@ export class NavBarComponent implements OnInit{
 		}
 	}
 	onSubmit(data:any){
-		this.loginService.tryLogin(data.username, data.password)
+		this.authService.tryLogin(data.username, data.password)
 		.then((res)=>{
 			this.logueado=res
-			this.loginService.logueado=true;
-			this.loginService.username=data.username;
+			this.authService.logueado=true;
+			this.authService.username=data.username;
 			this.modalService.dismissAll()
 		})
 		.catch((res)=>{
@@ -66,7 +66,7 @@ export class NavBarComponent implements OnInit{
 		})
 	}
 	onRegister(data:any){
-		this.loginService.tryRegister(data)
+		this.authService.tryRegister(data)
 		.then((res)=>{
 			console.log(res)
 		})
@@ -75,8 +75,8 @@ export class NavBarComponent implements OnInit{
 		})
 	}
 	closeSesion(){
-		this.loginService.closeSesion();
-		this.logueado=this.loginService.logueado
+		this.authService.closeSesion();
+		this.logueado=this.authService.logueado
 	}
 
 	resetForm(){
