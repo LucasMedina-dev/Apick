@@ -29,7 +29,7 @@ export class YourApisComponent implements OnInit {
       });
   }
   openCreator(){
-    this.creator=true;
+    this.creator ? this.creator=false : this.creator=true;
   }
   ngOnInit(): void {
     this.searchMyApicks();

@@ -8,5 +8,5 @@
       Create new Apick!<fa-icon class="apis_arrow" [icon]="faChevronRight"></fa-icon>
     </button>
   </div>
-  <app-create-api class="main_creator"></app-create-api>
+  <app-create-api class="main_creator" *ngIf="creator"></app-create-api>
 </main>

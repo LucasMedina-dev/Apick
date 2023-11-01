@@ -1,7 +1,7 @@
 <ul class="list">
     <li class="list_li"><button class="btn list_button" *ngIf="!logueado" (click)="open(login)">Sign in</button></li>
     <li class="list_li"><button class="btn list_button" *ngIf="!logueado" (click)="open(register)">Sign up</button></li>
-    <li class="list_li" [ngClass]="[logueado ? '' : 'd-none']" ><a class="btn list_button" *ngIf="logueado" routerLink="/yourapis">Your apis</a></li>
+    <li class="list_li" [ngClass]="[logueado ? '' : 'd-none']" ><a class="btn list_button" *ngIf="logueado" routerLink="/yourapis">My apicks</a></li>
     <li class="list_li" [ngClass]="[logueado ? '' : 'd-none']" ><a class="btn list_button" *ngIf="logueado" routerLink="/" (click)="closeSesion()">Log out</a></li>
 </ul>
 
