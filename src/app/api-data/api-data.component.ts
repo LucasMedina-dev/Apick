@@ -10,12 +10,13 @@ export class ApiDataComponent implements OnInit{
   @Input() apickData:any;
   faChevronRight=faChevronRight;
 
-  constructor(){}
+  constructor(){
+  }
 
 
   ngOnInit(): void {
-    console.log(this.apickData)
     this.apickData.url=`/apick/${this.apickData._id}`
+    
   }
 
 

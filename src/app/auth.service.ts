@@ -13,7 +13,6 @@ export class AuthService {
   tryLogin(user:String, pass:String):Promise<any>{
     const url = 'http://localhost:3000/api/login'; // Reemplaza por la URL de tu servidor
     const data = {username: user,password: pass};
-    console.log(data)
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

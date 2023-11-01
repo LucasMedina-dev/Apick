@@ -203,7 +203,7 @@ body {
 .creator_data {
   display: flex;
   flex-direction: column;
-  padding: 15px 0;
+  padding-bottom: 15px;
   border-bottom: solid 1px lightgray;
   textarea {
     resize: none;
@@ -227,6 +227,26 @@ body {
     font-size: 0.75em;
   }
 }
+
+.creator_list{
+  background-color: rgba(173, 216, 230, 0.535);
+  padding: 20px 5px;
+  margin-bottom: 10px;
+
+}
+.endpoint_item{
+  display: block;
+  background-color: rgba(215, 255, 223, 0.633);
+  p{
+    padding: 8px;
+  }
+}
+.method_button{
+  background-color: rgb(211, 255, 211);
+}
+.method_button-inactive{
+  background-color: rgb(255, 194, 194);
+}
 .endpoints {
   margin-top: 20px;
 }
@@ -240,4 +260,10 @@ body {
   left: -200px;
   width: 200vw;
   height: 100vh;
+}
+.creator_button{
+  background-color: rgb(211, 255, 211);
+  &:hover{
+    background-color: rgb(146, 255, 146);
+  }
 }

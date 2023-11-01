@@ -1,49 +1,31 @@
 <div class="main_form">
+  <h4 class="creator_title">APICK DATA</h4>
   <form class="creator_data" [formGroup]="formCreator">
-    <input
-      class="creator_input form-control"
-      type="text"
-      placeholder="Title for your apick!"
-      formControlName="title"
-    />
-    <textarea
-      class="creator_input form-control"
-      type="text"
-      placeholder="Description for your apick!"
-      formControlName="description"
-    ></textarea>
-    <input
-      class="creator_input form-control"
-      type="text"
-      placeholder="Link to a image icon"
-      formControlName="image"
-    />
+    <input class="creator_input form-control" type="text" placeholder="Title for your apick!" formControlName="title" />
+    <textarea class="creator_input form-control" type="text" placeholder="Description for your apick!"
+      formControlName="description"></textarea>
+    <input class="creator_input form-control" type="text" placeholder="Link to a image icon" formControlName="image" />
   </form>
   <div class="creator_endpoint">
     <h4 class="creator_title">CREATED ENDPOINTS</h4>
-    <div>
-      <p *ngFor="let endpoint of apickSave.endpoint">{{ endpoint.endpoint }}</p>
+    <div class="creator_list">
+      <div class="endpoint_item" *ngFor="let endpoint of apickSave.endpoint">
+        <p>/{{endpoint.endpoint}}</p>
+        <button class="btn method_button" [class.method_button-inactive]="!endpoint.methods.includes('GET')" (click)="switchMethod('GET', endpoint.endpoint)">GET</button>
+        <button class="btn method_button" [class.method_button-inactive]="!endpoint.methods.includes('POST')" (click)="switchMethod('POST',  endpoint.endpoint)">POST</button>
+      </div>
     </div>
   </div>
-  <button (click)="uploadApick()">CONFIRMAR APICK</button>
+  <button class="creator_button btn" (click)="uploadApick()">Create Apick!</button>
 </div>
 <div class="main_json">
   <h4 class="creator_title text-center">JSON DATA</h4>
   <form [formGroup]="formJson" class="creator_json">
-    <input
-      class="creator_input form-control"
-      type="text"
-      formControlName="endpoint"
-      (input)="validateEndpointName()"
-      [class.active]="endpointExists"
-    />
-    <textarea formControlName="docs"></textarea>
-    <button
-      class="creator_button"
-      type="button"
-      (click)="saveJsonData(formJson.value.docs)"
-    >
-      Confirmar
+    <input pattern="[A-Za-z0-9]+" class="creator_input form-control" type="text" formControlName="endpoint" (input)="validateEndpointName()"
+      [class.active]="endpointFail" placeholder="Endpoint name" />
+    <textarea formControlName="docs" placeholder="Paste here your JSON and choise a endpoint name"></textarea>
+    <button class="creator_button btn" type="button" (click)="saveJsonData(formJson.value.docs)">
+      Confirm data
     </button>
   </form>
 </div>

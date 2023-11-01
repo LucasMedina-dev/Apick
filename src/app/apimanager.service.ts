@@ -47,17 +47,23 @@ export class ApimanagerService {
     return this.http.get<any>(url, httpOptions);
   }
 
-  
-/*
-  registerApi(data:any){
+  registerApick(apickData : any){
     const url = 'http://localhost:3000/api/apick'; // Reemplaza por la URL de tu servidor
-    const data = {username: user,password: pass};
-    console.log(data)
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
+    return this.http.post<any>(url,apickData, httpOptions).toPromise();
   }
-*/
+  registerEndpoint(endpoint : any){
+    const url = 'http://localhost:3000/api/endpoint'; // Reemplaza por la URL de tu servidor
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<any>(url,endpoint, httpOptions).toPromise();
+  }
+
 }

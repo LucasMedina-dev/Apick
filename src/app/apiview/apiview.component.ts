@@ -19,6 +19,8 @@ export class ApiviewComponent implements OnInit {
     this.apiManager.getApickById(this.id).subscribe((data)=>{
       this.apick=data[0];
       this.endpoints=this.apick.endpoint.filter((e:any)=>e.active===true)
+      console.log(this.apick)
     })
+    
   }
 }

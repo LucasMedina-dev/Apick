@@ -8,7 +8,7 @@ import {  FormGroup,  FormControl, Validators} from '@angular/forms';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnInit{
+export class NavBarComponent{
 	logueado:Boolean=false;
 	closeResult = '';
 	isActive:boolean = false;
@@ -29,9 +29,7 @@ export class NavBarComponent implements OnInit{
 	constructor(private modalService: NgbModal, private authService: AuthService) {
 
 	}
-	ngOnInit(): void {
 
-	}
 
 	open(content:any) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
@@ -67,9 +65,6 @@ export class NavBarComponent implements OnInit{
 	}
 	onRegister(data:any){
 		this.authService.tryRegister(data)
-		.then((res)=>{
-			console.log(res)
-		})
 		.catch((res)=>{
 			alert('Error al registro');
 		})
