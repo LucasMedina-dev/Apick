@@ -1,3 +1,3 @@
 <form class="searcher">
-    <input class="searcher_input" type="text" id="search" name="search" placeholder="Buscar por nombre" [(ngModel)]="query" (input)="goSearch(query)">
+    <input *ngIf="stateService.showSearcher" class="searcher_input" type="text" id="search" name="search" placeholder="Buscar por nombre" [(ngModel)]="query" (input)="goSearch(query)">
 </form>

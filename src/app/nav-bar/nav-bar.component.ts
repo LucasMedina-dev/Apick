@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {  FormGroup,  FormControl, Validators} from '@angular/forms';
+import { NavbarSearcherService } from '../navbar-searcher.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -26,9 +27,7 @@ export class NavBarComponent{
 
 
 
-	constructor(private modalService: NgbModal, private authService: AuthService) {
-
-	}
+	constructor(private modalService: NgbModal, private authService: AuthService, private navBarValue: NavbarSearcherService) {}
 
 
 	open(content:any) {
@@ -72,9 +71,14 @@ export class NavBarComponent{
 	closeSesion(){
 		this.authService.closeSesion();
 		this.logueado=this.authService.logueado
+		this.renderSearch(true)
 	}
 
 	resetForm(){
 		this.isActive = false;
+	}
+
+	renderSearch(value:boolean){
+		this.navBarValue.changeState(value);
 	}
 }

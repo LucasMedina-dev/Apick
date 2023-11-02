@@ -1,6 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class ApimanagerService {
   private filtered:BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {}
+  
 
   get getFiltered(): Observable<any> {
     return this.filtered.asObservable();
@@ -65,5 +67,6 @@ export class ApimanagerService {
     };
     return this.http.post<any>(url,endpoint, httpOptions).toPromise();
   }
+
 
 }

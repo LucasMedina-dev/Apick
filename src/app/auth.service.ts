@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 
 export class AuthService {
-  logueado=false;
+  public logueado=false;
   username!: string;
   constructor(private http: HttpClient){ }
 
