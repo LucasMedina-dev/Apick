@@ -9,6 +9,7 @@ html {
   background-size: cover;
 }
 body {
+  height: 100vh;
   margin: 0 5% 0 5%;
   background-color: #ffffff00;
   backdrop-filter: opacity(0);
@@ -20,6 +21,7 @@ body {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  height: 85px;
   .header_searcher {
     display: flex;
     flex-direction: column;
@@ -36,7 +38,7 @@ body {
 .main {
   display: flex;
   width: 100%;
-  height: 90vh;
+  height: 100%;
   border-radius: 10px;
   border: solid 1px rgb(232, 232, 232);
   background: rgba(156, 156, 156, 0.7);
@@ -54,6 +56,8 @@ body {
     width: 25%;
     padding: 15px 10px 0 10px;
     border-right: solid 1px lightgray;
+    overflow-y: auto;
+    overflow-x: hidden;
     .apis_create {
       width: 100%;
       height: 50px;
@@ -83,9 +87,9 @@ body {
     padding: 0 15px;
     width: 60%;
   }
-  .main_creator {
+  .main_division {
     display: flex;
-    width: 100%;
+    width: 75%;
   }
 }
 .form_register {
@@ -266,4 +270,8 @@ body {
   &:hover{
     background-color: rgb(146, 255, 146);
   }
+}
+app-your-apis{
+  height: calc(100vh - 89px);
+  display: block;
 }

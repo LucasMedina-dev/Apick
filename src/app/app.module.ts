@@ -12,10 +12,10 @@ import { ApiDataComponent } from './api-data/api-data.component';
 import { HomeComponent } from './home/home.component';
 import { YourApisComponent } from './your-apis/your-apis.component';
 import { HeaderComponent } from './header/header.component';
-import { MyapickComponent } from './myapick/myapick.component';
 import { ApiviewComponent } from './apiview/apiview.component';
 import { CreateApiComponent } from './create-api/create-api.component';
 import { ResponseComponent } from './response/response.component';
+import { ModifyApiComponent } from './modify-api/modify-api.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +27,10 @@ import { ResponseComponent } from './response/response.component';
     HomeComponent,
     YourApisComponent,
     HeaderComponent,
-    MyapickComponent,
     ApiviewComponent,
     CreateApiComponent,
-    ResponseComponent
+    ResponseComponent,
+    ModifyApiComponent
   ],
   imports: [
     BrowserModule,

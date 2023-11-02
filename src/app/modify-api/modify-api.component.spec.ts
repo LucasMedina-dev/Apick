@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyapickComponent } from './myapick.component';
+import { ModifyApiComponent } from './modify-api.component';
 
-describe('MyapickComponent', () => {
-  let component: MyapickComponent;
-  let fixture: ComponentFixture<MyapickComponent>;
+describe('ModifyApiComponent', () => {
+  let component: ModifyApiComponent;
+  let fixture: ComponentFixture<ModifyApiComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MyapickComponent]
+      declarations: [ModifyApiComponent]
     });
-    fixture = TestBed.createComponent(MyapickComponent);
+    fixture = TestBed.createComponent(ModifyApiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

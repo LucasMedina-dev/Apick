@@ -10,10 +10,11 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 })
 export class YourApisComponent implements OnInit {
   data: any;
-  creator=false;
+  creatorView:Boolean=false;
+  apiView:Boolean=false;
   faChevronRight=faChevronRight;
   jsonString:any;
-
+  
   constructor(
     private apiManager: ApimanagerService,
     private authService: AuthService
@@ -29,15 +30,17 @@ export class YourApisComponent implements OnInit {
       });
   }
   openCreator(){
-    this.creator ? this.creator=false : this.creator=true;
+    this.creatorView=this.creatorView ? false:true;
+  }
+  openApi(data: any) {
+    this.creatorView=false;
+    this.apiView=this.apiView ? false:true;
+
   }
   ngOnInit(): void {
     this.searchMyApicks();
   }
 
-  
-
-  
 }
 
 

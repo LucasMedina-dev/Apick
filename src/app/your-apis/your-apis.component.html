@@ -1,12 +1,23 @@
 <main class="main">
   <div class="main_apicks">
     <h2 class="apis_title">My Apicks</h2>
-    <div class="apis_list">
-      <app-myapick *ngFor="let api of data" [data]="api"></app-myapick>
-    </div>
     <button class="btn apis_create" (click)="openCreator()">
       Create new Apick!<fa-icon class="apis_arrow" [icon]="faChevronRight"></fa-icon>
     </button>
+    <div class="apis_list">
+      <div *ngFor="let api of data">
+        <div class="myapick">
+          <img class="myapick_image" src="{{ api.imageUrl }}" alt="" />
+          <h4 class="myapick_title">{{ api.title }}</h4>
+          <button class="btn myapick_edit" id="{{ api._id }}" (click)="openApi(data)">
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+          </button>
+        </div>
+        
+      </div>
+      
+    </div>
   </div>
-  <app-create-api class="main_creator" *ngIf="creator"></app-create-api>
+  <app-create-api class="main_division" *ngIf="creatorView"></app-create-api>
+  <app-modify-api class="main_division" *ngIf="apiView"></app-modify-api>
 </main>
