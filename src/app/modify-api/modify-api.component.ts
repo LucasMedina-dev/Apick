@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApimanagerService } from '../apimanager.service';
 
 @Component({
   selector: 'app-modify-api',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class ModifyApiComponent {
 
+  constructor(private apiManager: ApimanagerService){}
+
+  
 }

@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class NavbarSearcherService {
-  showSearcher!:boolean;
+  showSearcher:boolean=true;
 
   changeState(newState:boolean){
     this.showSearcher = newState;

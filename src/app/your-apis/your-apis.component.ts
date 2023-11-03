@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApimanagerService } from '../apimanager.service';
 import { AuthService } from '../auth.service';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { ApickStruct } from '../create-api/apickStruct.interface';
 
 @Component({
   selector: 'app-your-apis',
@@ -25,11 +26,12 @@ export class YourApisComponent implements OnInit {
   searchMyApicks() {
     this.apiManager
       .getMyApicks(this.authService.username)
-      .then((data: any) => {
-        this.data = data;
-      });
+      .subscribe({
+        next: (data)=>this.data = data as ApickStruct
+      })
   }
   openCreator(){
+    this.apiView=false;
     this.creatorView=this.creatorView ? false:true;
   }
   openApi(data: any) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApimanagerService } from '../apimanager.service';
 import { Subscription } from 'rxjs';
+import { ApickStruct } from '../create-api/apickStruct.interface';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,12 @@ export class HomeComponent implements OnInit{
   constructor(private apiManager : ApimanagerService){}
 
   ngOnInit(): void {
-    this.apiManager.getAllApicks().then((data)=>{
-      this.apiManager.data = data;
-      this.apiManager.setFiltered(data);
-      this.apiManager.getFiltered.subscribe((data)=>{this.apick = data});
+    this.apiManager.getAllApicks().subscribe({
+      next: (data)=>{
+        this.apiManager.data = data as ApickStruct;
+        this.apiManager.setFiltered(data);
+        this.apiManager.getFiltered.subscribe((data)=>{this.apick = data});
+      }
     })
   }
 

@@ -14,11 +14,11 @@ export class CreateApiComponent {
   constructor(
     private authService: AuthService,
     private apiManager: ApimanagerService
-  ) {}
+  ) { }
   formCreator = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    image: new FormControl('', Validators.required),
+    image: new FormControl(''),
     username: new FormControl(
       this.authService.getUsername(),
       Validators.required
@@ -49,7 +49,7 @@ export class CreateApiComponent {
   public docsSave: Array<EndpointStruct> = [];
   public endpointFail!: Boolean;
 
-  
+
   saveJsonData(text: any) {
     if (
       this.jsonValid(text) &&
@@ -57,28 +57,31 @@ export class CreateApiComponent {
       this.formJson.value.endpoint &&
       this.formJson.valid
     ) {
-      this.buildApick();
       this.buildEndpoint();
       this.pushEndpoint();
       this.docsSave.push({ ...this.endpointSave });
-    } else if (!this.formJson.valid){
-      this.endpointFail=true
+    } else if (!this.formJson.valid) {
+      this.endpointFail = true
       alert('El nombre para su endpoint no permite espacios ni simbolos')
-    }else{
+    } else {
       alert("El documento JSON no es valido")
     }
   }
 
   buildApick() {
-    let defaultImage =
+    if(this.formCreator.valid){
+      let defaultImage =
       'https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png';
-    this.apickSave.username = this.authService.getUsername();
-    this.apickSave.title = this.formCreator.value.title || '';
-    this.apickSave.description = this.formCreator.value.description || '';
-    this.apickSave.imageUrl =
-      (this.formCreator.value.image != ''
-        ? this.formCreator.value.image
-        : defaultImage) || '';
+      this.apickSave.username = this.authService.getUsername();
+      this.apickSave.title = this.formCreator.value.title || '';
+      this.apickSave.description = this.formCreator.value.description || '';
+      this.apickSave.imageUrl =
+        (this.formCreator.value.image != ''
+          ? this.formCreator.value.image
+          : defaultImage) || '';
+    }else{
+      console.log(this.formCreator.value)
+    }
   }
   buildEndpoint() {
     this.endpointSave.username = this.authService.getUsername();
@@ -117,23 +120,25 @@ export class CreateApiComponent {
     }
   }
   uploadApick() {
-    this.apiManager.registerApick(this.apickSave).then((res) => {
-      console.log(res)
-      for (let data of this.docsSave) {
-        this.apiManager.registerEndpoint(data).then((res) => {
-          console.log(res)
-        });
+    this.buildApick();
+    this.apiManager.registerApick(this.apickSave).subscribe({
+      next: (dataApi) => {
+        console.log(dataApi)
+        for (let data of this.docsSave) {
+          this.apiManager.registerEndpoint(data).subscribe({
+            next: (res) => console.log(res)
+          })
+        }
       }
-    });
-    
+    })
   }
-  switchMethod(method:string, endpoint:string){
+  switchMethod(method: string, endpoint: string) {
     const whereIs = this.apickSave.endpoint.find(item => item.endpoint === endpoint);
     if (whereIs) {
       const index = whereIs.methods.indexOf(method);
       if (index !== -1) {
         whereIs.methods.splice(index, 1);
-      }else if (!whereIs.methods.includes(method)) {
+      } else if (!whereIs.methods.includes(method)) {
         whereIs.methods.push(method);
       }
 

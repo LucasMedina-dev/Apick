@@ -20,23 +20,23 @@ export class ApimanagerService {
     this.filtered.next(value);
   }
 
-  getMyApicks(username:string):Promise<any>{
+  getMyApicks(username:string):Observable<any>{
     const url = `http://localhost:3000/api/apick?username=${username}`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
     })}
-    return this.http.get<any>(url, httpOptions).toPromise();
+    return this.http.get<any>(url, httpOptions);
   }
 
-  getAllApicks(){
+  getAllApicks():Observable<any>{
     const url = `http://localhost:3000/api/apick?active=true`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
     })}
     
-    return this.http.get<any>(url, httpOptions).toPromise();
+    return this.http.get<any>(url, httpOptions)
   }
   getApickById(id:string):Observable<any>{
     const url = `http://localhost:3000/api/apick?_id=${id}`;
@@ -48,23 +48,23 @@ export class ApimanagerService {
     return this.http.get<any>(url, httpOptions);
   }
 
-  registerApick(apickData : any){
+  registerApick(apickData : any):Observable<any>{
     const url = 'http://localhost:3000/api/apick'; // Reemplaza por la URL de tu servidor
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>(url,apickData, httpOptions).toPromise();
+    return this.http.post<any>(url,apickData, httpOptions)
   }
-  registerEndpoint(endpoint : any){
+  registerEndpoint(endpoint : any):Observable<any>{
     const url = 'http://localhost:3000/api/endpoint'; // Reemplaza por la URL de tu servidor
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>(url,endpoint, httpOptions).toPromise();
+    return this.http.post<any>(url,endpoint, httpOptions);
   }
 
 
