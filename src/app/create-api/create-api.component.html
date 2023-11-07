@@ -22,7 +22,7 @@
   <h4 class="creator_title text-center">JSON DATA</h4>
   <form [formGroup]="formJson" class="creator_json">
     <input pattern="[A-Za-z0-9]+" class="creator_input form-control" type="text" formControlName="endpoint" (input)="validateEndpointName()"
-      [class.active]="endpointFail" placeholder="Endpoint name" />
+      [class.button_inactive]="endpointFail" placeholder="Endpoint name" />
     <textarea formControlName="docs" placeholder="Paste here your JSON and choise a endpoint name"></textarea>
     <button [disabled]="!formCreator.valid" class="creator_button btn" type="button" (click)="saveJsonData(formJson.value.docs)">
       Confirm data

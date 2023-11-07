@@ -26,9 +26,25 @@ export class ModifyApiComponent implements OnChanges{
       image: [data.imageUrl || ''],
     });
   }
-
+  switchMethod(endpoint:string, method:string){
+    let endpointToModify= this.data.endpoint.find((e)=>e.endpoint===endpoint)
+    if(endpointToModify){
+      if(endpointToModify.methods.includes(method)){
+        let index=endpointToModify.methods.indexOf(method)
+        index!==-1 ? endpointToModify.methods.splice(index, 1) : null;
+      }else{
+        endpointToModify.methods.push(method)
+      }
+    }
+  }
+  switchEndpointStatus(endpoint:string){
+    let endpointToModify= this.data.endpoint.find((e)=>e.endpoint===endpoint)
+    if(endpointToModify){
+      endpointToModify.active=!endpointToModify.active
+    }
+    console.log(this.data)
+  }
   ngOnChanges(): void {
     this.buildPreviewApick(this.data)
-    console.log(this.data)
   }
 }

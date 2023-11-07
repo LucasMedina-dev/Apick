@@ -232,32 +232,29 @@ body {
   }
 }
 
-.creator_list{
+.creator_list {
   background-color: rgba(173, 216, 230, 0.535);
   padding: 20px 5px;
   margin-bottom: 10px;
-
 }
-.endpoint_item{
+.endpoint_item {
   display: block;
   background-color: rgba(215, 255, 223, 0.633);
-  p{
+  p {
     padding: 8px;
   }
 }
-.method_button{
+.method_button {
   background-color: rgb(211, 255, 211);
 }
-.method_button-inactive{
+.method_button-inactive {
   background-color: rgb(255, 194, 194);
 }
 .endpoints {
   margin-top: 20px;
 }
 
-.active {
-  background-color: rgb(255, 194, 194);
-}
+
 
 .modal-backdrop {
   --bs-backdrop-opacity: 0.9;
@@ -265,38 +262,72 @@ body {
   width: 200vw;
   height: 100vh;
 }
-.creator_button{
+.creator_button {
   background-color: rgb(211, 255, 211);
-  &:hover{
+  &:hover {
     background-color: rgb(146, 255, 146);
   }
 }
-app-your-apis{
+app-your-apis {
   height: calc(100vh - 89px);
   display: block;
 }
 
 // MODIFY APICK - MODIFY APICK - MODIFY APICK - MODIFY APICK
 
-.modify_main{
+.modify_main {
   width: 60%;
   display: flex;
   flex-direction: column;
-  .modify_data{
+  border-right: solid 1px lightgray;
+    padding: 0px 4%;
+  .modify_data {
     height: 30%;
   }
-  .modify_methods{
+  .modify_methods {
     height: 70%;
     display: flex;
     flex-direction: row;
-    .method_data{
+    .method_data {
       width: 50%;
     }
-    .method_response{
+    .method_response {
       width: 50%;
     }
   }
 }
-.modify_endpoint{
-    width: 40%;  
+.modify_endpoint {
+  width: 40%;
+  margin-left: 10px;
+  .modify_method{
+    margin-bottom: 5px;
+    display: flex;
+    p{
+      display: inline-flex;
+      background-color: rgb(255 255 255 / 71%);
+      border: solid 1px #989898;
+      color: #2d2d2d;
+      padding: 2px 150px 2px 5px;
+      margin: 0;
+    }
+  }
+}
+.modify_button {
+  background-color: rgb(211, 255, 211);
+  padding: 2px 1.5rem;
+  &:hover {
+    background-color: rgb(146, 255, 146);
+  }
+}
+.modify_title {
+  margin: 10px 0;
+  display: flex;
+  .modify_title-endpoint {
+    font-size: 1.5rem;
+    height: 30px;
+    padding-left: 10px;
+  }
+}
+.button_inactive {
+  background-color: rgb(255, 194, 194);
 }
