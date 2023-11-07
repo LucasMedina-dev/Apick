@@ -1,7 +1,7 @@
 <main class="main">
   <div class="main_apicks">
     <h2 class="apis_title">My Apicks</h2>
-    <button class="btn apis_create" (click)="openCreator()">
+    <button class="btn apis_create" (click)="openApiCreator()">
       Create new Apick!<fa-icon class="apis_arrow" [icon]="faChevronRight"></fa-icon>
     </button>
     <div class="apis_list">
@@ -9,7 +9,7 @@
         <div class="myapick">
           <img class="myapick_image" src="{{ api.imageUrl }}" alt="" />
           <h4 class="myapick_title">{{ api.title }}</h4>
-          <button class="btn myapick_edit" id="{{ api._id }}" (click)="openApi(data)">
+          <button class="btn myapick_edit" id="{{ api._id }}" (click)="openApiEditor(api)">
             <fa-icon [icon]="faChevronRight"></fa-icon>
           </button>
         </div>
@@ -19,5 +19,5 @@
     </div>
   </div>
   <app-create-api class="main_division" *ngIf="creatorView"></app-create-api>
-  <app-modify-api class="main_division" *ngIf="apiView"></app-modify-api>
+  <app-modify-api class="main_division" *ngIf="apiView" [data]='dataToEdit'></app-modify-api>
 </main>

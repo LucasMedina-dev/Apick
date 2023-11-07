@@ -1,6 +1,6 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,16 @@ export class ApimanagerService {
   }
 
   getMyApicks(username:string):Observable<any>{
-    const url = `http://localhost:3000/api/apick?username=${username}`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-    })}
-    return this.http.get<any>(url, httpOptions);
+    if(username!=''){
+      const url = `http://localhost:3000/api/apick?username=${username}`;
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+      })}
+      return this.http.get<any>(url, httpOptions);
+    }else{
+      return of(null)
+    }
   }
 
   getAllApicks():Observable<any>{

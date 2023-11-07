@@ -15,7 +15,8 @@ export class YourApisComponent implements OnInit {
   apiView:Boolean=false;
   faChevronRight=faChevronRight;
   jsonString:any;
-  
+  dataToEdit!:ApickStruct;
+
   constructor(
     private apiManager: ApimanagerService,
     private authService: AuthService
@@ -25,19 +26,19 @@ export class YourApisComponent implements OnInit {
 
   searchMyApicks() {
     this.apiManager
-      .getMyApicks(this.authService.username)
+      .getMyApicks(this.authService.username || localStorage.getItem("username") || "")
       .subscribe({
         next: (data)=>this.data = data as ApickStruct
       })
   }
-  openCreator(){
+  openApiCreator(){
     this.apiView=false;
     this.creatorView=this.creatorView ? false:true;
   }
-  openApi(data: any) {
+  openApiEditor(data: any) {
     this.creatorView=false;
-    this.apiView=this.apiView ? false:true;
-
+    this.apiView=true;
+    this.dataToEdit=data;
   }
   ngOnInit(): void {
     this.searchMyApicks();

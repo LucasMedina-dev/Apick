@@ -279,14 +279,24 @@ app-your-apis{
 // MODIFY APICK - MODIFY APICK - MODIFY APICK - MODIFY APICK
 
 .modify_main{
-
+  width: 60%;
+  display: flex;
+  flex-direction: column;
   .modify_data{
-
+    height: 30%;
   }
   .modify_methods{
-
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    .method_data{
+      width: 50%;
+    }
+    .method_response{
+      width: 50%;
+    }
   }
 }
 .modify_endpoint{
-  
+    width: 40%;  
 }

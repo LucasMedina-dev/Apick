@@ -9,7 +9,7 @@ import { NavbarSearcherService } from '../navbar-searcher.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent{
+export class NavBarComponent implements OnInit{
 	logueado:Boolean=false;
 	closeResult = '';
 	isActive:boolean = false;
@@ -51,16 +51,21 @@ export class NavBarComponent{
 		}
 	}
 	onSubmit(data:any){
-		this.authService.tryLogin(data.username, data.password)
-		.then((res)=>{
-			this.logueado=res
-			this.authService.logueado=true;
-			this.authService.username=data.username;
-			this.modalService.dismissAll()
+		this.authService
+		.tryLogin(data.username, data.password)
+		.subscribe({
+			next: (res)=>{
+				this.logueado=res
+				this.authService.logueado=true;
+				this.authService.username=data.username;
+				this.modalService.dismissAll()
+				localStorage.setItem("username", data.username)
+			},
+			error: ()=>{
+				this.isActive = true;	
+			}
 		})
-		.catch((res)=>{
-			this.isActive = true;	
-		})
+		
 	}
 	onRegister(data:any){
 		this.authService.tryRegister(data)
@@ -72,6 +77,7 @@ export class NavBarComponent{
 		this.authService.closeSesion();
 		this.logueado=this.authService.logueado
 		this.renderSearch(true)
+		localStorage.removeItem("username")
 	}
 
 	resetForm(){
@@ -80,5 +86,15 @@ export class NavBarComponent{
 
 	renderSearch(value:boolean){
 		this.navBarValue.changeState(value);
+	}
+	ngOnInit(): void {
+		let username=localStorage.getItem("username")
+		if(username!=undefined){
+			this.logueado=true
+			this.authService.logueado=true;
+			this.authService.username=username;
+		}else{
+			console.log("es undefined")
+		}
 	}
 }

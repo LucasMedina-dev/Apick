@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,22 @@ export class AuthService {
   username!: string;
   constructor(private http: HttpClient){ }
 
-  tryLogin(user:String, pass:String):Promise<any>{
-    const url = 'http://localhost:3000/api/login'; // Reemplaza por la URL de tu servidor
-    const data = {username: user,password: pass};
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return this.http.post<any>(url,data, httpOptions).toPromise();
+  alreadyLocalUser(){
+    return localStorage.getItem("username")
+  }
+  tryLogin(user:String, pass:String):Observable<any>{
+    if(!this.alreadyLocalUser()){
+      const url = 'http://localhost:3000/api/login'; // Reemplaza por la URL de tu servidor
+      const data = {username: user,password: pass};
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      };
+      return this.http.post<any>(url,data, httpOptions)
+    }else{
+      return of(this.alreadyLocalUser())
+    }
   }
   tryRegister(data:any){
     const url = 'http://localhost:3000/api/register';

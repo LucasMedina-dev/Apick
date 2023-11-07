@@ -1,5 +1,20 @@
 <div class="modify_main">
-    <div class="modify_data" ></div>
-    <div class="modify_methods"></div>
+  <div class="modify_data">
+    <form class="creator_data" [formGroup]="formModifier">
+        <input class="creator_input form-control" type="text" placeholder="Title for your apick!" formControlName="title" />
+        <textarea class="creator_input form-control" type="text" placeholder="Description for your apick!"
+          formControlName="description"></textarea>
+        <input class="creator_input form-control" type="text" placeholder="Link to a image icon" formControlName="image" />
+      </form>
+  </div>
+  <div class="modify_methods">
+    <div class="method_data">Aca ira el metodo para editar</div>
+    <div class="method_response">Y este sera el espacio donde se mostrara la respuesta del metodo</div>
+  </div>
 </div>
-<div class="modify_endpoint"></div>
+<div class="modify_endpoint">
+  <div *ngFor="let endpoint of data.endpoint">
+    <h4>{{endpoint.endpoint}}  {{endpoint.active}}</h4>
+    <div *ngFor="let method of endpoint.methods">/{{endpoint.endpoint}} {{method}}</div>
+  </div>
+</div>
