@@ -29,6 +29,7 @@ export class CreateApiComponent {
     docs: new FormControl('', Validators.required),
   });
   public apickSave: ApickStruct = {
+    _id:'',
     username: '',
     title: '',
     imageUrl:

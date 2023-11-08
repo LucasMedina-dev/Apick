@@ -1,4 +1,5 @@
 <div class="modify_main">
+  <h4>APICK DATA</h4>
   <div class="modify_data">
     <form class="creator_data" [formGroup]="formModifier">
       <input
@@ -19,9 +20,17 @@
         placeholder="Link to a image icon"
         formControlName="image"
       />
+      <div class="">
+        <button class="btn btn-success btn-sm" (click)="open(confirm)">Confirm</button>
+        <button class="btn btn-primary btn-sm" (click)="open(pause)" *ngIf="data.active">Pause Api</button>
+        <button class="btn btn-primary btn-sm" (click)="open(start)" *ngIf="!data.active">Start Api</button>
+        <button class="btn btn-danger btn-sm" (click)="open(delete)">Delete Api</button>
+      </div>
     </form>
   </div>
+
   <div class="modify_methods">
+    
     <div class="method_data">Aca ira el metodo para editar</div>
     <div class="method_response">
       Y este sera el espacio donde se mostrara la respuesta del metodo
@@ -29,14 +38,117 @@
   </div>
 </div>
 <div class="modify_endpoint">
+  <h4>ENDPOINTS</h4>
   <div *ngFor="let endpoint of data.endpoint">
     <div class="modify_title">
-      <button class="modify_button btn" [class.button_inactive]="!endpoint.active" (click)="switchEndpointStatus(endpoint.endpoint)">Active</button>
+      <button
+        class="modify_button btn"
+        [class.button_inactive]="!endpoint.active"
+        (click)="switchEndpointStatus(endpoint.endpoint)"
+      >
+        Active
+      </button>
       <span class="modify_title-endpoint">{{ endpoint.endpoint }}</span>
     </div>
-    <div class="modify_method" *ngFor="let method of ['GET', 'POST']" >
-      <p>/{{ endpoint.endpoint }}</p>
-      <button class="modify_button btn" [class.button_inactive]="!endpoint.methods.includes(method)" (click)="switchMethod(endpoint.endpoint,method)">{{ method }}</button>
+    <div class="modify_method" *ngFor="let method of ['GET', 'POST']">
+      <button>/{{ endpoint.endpoint }}</button>
+      <button
+        class="modify_button btn"
+        [class.button_inactive]="!endpoint.methods.includes(method)"
+        (click)="switchMethod(endpoint.endpoint, method)"
+      >
+        {{ method }}
+      </button>
     </div>
   </div>
 </div>
+
+<ng-template #delete let-deleteModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete Api</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="deleteModal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        Do you want to delete your api?
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+		<button type="button" class="btn btn-outline-danger">Delete Api</button>
+	</div>
+</ng-template>
+
+<ng-template #pause let-pauseModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Pause Api</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="pauseModal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        Do you want to pause your api?
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(data._id)">Pause Api</button>
+	</div>
+</ng-template>
+
+
+<ng-template #start let-startModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Start Api</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="startModal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        Do you want to start your api?
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(data._id)">Start Api</button>
+	</div>
+</ng-template>
+
+
+<ng-template #confirm let-confirmApi>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm changes in Api</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="confirmApi.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        Do you want to confirm the changes in your api?
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+		<button type="button" class="btn btn-outline-success">Confirm Api</button>
+	</div>
+</ng-template>

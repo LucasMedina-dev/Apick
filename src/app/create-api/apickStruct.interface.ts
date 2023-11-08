@@ -1,4 +1,5 @@
 export interface ApickStruct{
+    _id:string;
     username:string;
     title:string;
     imageUrl:string;

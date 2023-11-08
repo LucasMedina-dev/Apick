@@ -3,6 +3,7 @@ import { ApimanagerService } from '../apimanager.service';
 import { ApickStruct } from '../create-api/apickStruct.interface';
 import { FormControl, FormGroup, Validators, FormBuilder, Form } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modify-api',
@@ -11,14 +12,34 @@ import { AuthService } from '../auth.service';
 })
 export class ModifyApiComponent implements OnChanges{
   @Input() data!: ApickStruct;
+  closeResult = '';
+
   formModifier = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     image: new FormControl(''),
   });
-  constructor(private formBuilder: FormBuilder){ }
+  constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private apiManager : ApimanagerService){ }
 
-
+  open(content:any) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+			(result) => {
+				this.closeResult = `Closed with: ${result}`;
+			},
+			(reason) => {
+				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+			},
+		);
+	}
+  private getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return 'by clicking on a backdrop';
+		} else {
+			return `with: ${reason}`;
+		}
+	}
   buildPreviewApick(data : ApickStruct){
     this.formModifier = this.formBuilder.group({
       title: [data.title || '', Validators.required],
@@ -43,6 +64,13 @@ export class ModifyApiComponent implements OnChanges{
       endpointToModify.active=!endpointToModify.active
     }
     console.log(this.data)
+  }
+  switchStatus(_id: string) {
+    this.apiManager.updateApickStatus(_id, !this.data.active).subscribe({
+      next: () => {
+        this.data.active = !this.data.active
+      }
+    });
   }
   ngOnChanges(): void {
     this.buildPreviewApick(this.data)

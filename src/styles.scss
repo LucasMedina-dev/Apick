@@ -283,6 +283,9 @@ app-your-apis {
     padding: 0px 4%;
   .modify_data {
     height: 30%;
+    button{
+      margin-right: 10px;
+    }
   }
   .modify_methods {
     height: 70%;
@@ -302,13 +305,16 @@ app-your-apis {
   .modify_method{
     margin-bottom: 5px;
     display: flex;
-    p{
+    :first-child{
       display: inline-flex;
       background-color: rgb(255 255 255 / 71%);
       border: solid 1px #989898;
       color: #2d2d2d;
       padding: 2px 150px 2px 5px;
       margin: 0;
+      &:hover{
+        background-color: rgba(223, 223, 223, 0.71);
+      }
     }
   }
 }

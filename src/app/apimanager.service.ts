@@ -53,7 +53,7 @@ export class ApimanagerService {
   }
 
   registerApick(apickData : any):Observable<any>{
-    const url = 'http://localhost:3000/api/apick'; // Reemplaza por la URL de tu servidor
+    const url = 'http://localhost:3000/api/apick';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -61,8 +61,14 @@ export class ApimanagerService {
     };
     return this.http.post<any>(url,apickData, httpOptions)
   }
+
+  updateApickStatus(apickId : string, status:Boolean):Observable<any>{
+    const url = `http://localhost:3000/api/apick/${apickId}`;
+    return this.http.put<any>(url,{active:status});
+  }
+  
   registerEndpoint(endpoint : any):Observable<any>{
-    const url = 'http://localhost:3000/api/endpoint'; // Reemplaza por la URL de tu servidor
+    const url = 'http://localhost:3000/api/endpoint';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -71,5 +77,6 @@ export class ApimanagerService {
     return this.http.post<any>(url,endpoint, httpOptions);
   }
 
+  
 
 }
