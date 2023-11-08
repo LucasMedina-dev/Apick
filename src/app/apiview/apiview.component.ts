@@ -21,7 +21,6 @@ export class ApiviewComponent implements OnInit {
       next: (data)=>{
         this.apick=data[0];
         this.endpoints=this.apick.endpoint.filter((e:any)=>e.active===true)
-        console.log(this.apick)
       }
     })
     

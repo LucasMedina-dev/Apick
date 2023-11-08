@@ -63,7 +63,6 @@ export class ModifyApiComponent implements OnChanges{
     if(endpointToModify){
       endpointToModify.active=!endpointToModify.active
     }
-    console.log(this.data)
   }
   switchStatus(_id: string) {
     this.apiManager.updateApickStatus(_id, !this.data.active).subscribe({
