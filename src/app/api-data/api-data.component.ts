@@ -16,7 +16,6 @@ export class ApiDataComponent implements OnInit{
 
   ngOnInit(): void {
     this.apickData.url=`/apick/${this.apickData._id}`
-    
   }
 
 
