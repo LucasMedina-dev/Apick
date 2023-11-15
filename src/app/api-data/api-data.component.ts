@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { SearcherComponent } from '../searcher/searcher.component';
 @Component({
   selector: 'app-api-data',
   templateUrl: './api-data.component.html',
