@@ -108,7 +108,6 @@ export class ModifyApiComponent implements OnChanges, OnInit{
   }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick)
-    console.log(this.dataApick)
   }
   ngOnInit(): void {
     this.apiManager.getApickById(this.dataApick._id || '').subscribe({
