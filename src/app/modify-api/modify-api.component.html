@@ -49,7 +49,8 @@
       >
         Active
       </button>
-      <span class="modify_title-endpoint">{{ endpoint.endpoint }}</span>
+      <span class="modify_title-endpoint" >{{ endpoint.endpoint }}</span>
+      <button class="btn" (click)="open(nameEdit)"><fa-icon [icon]="faPenToSquare" class="text-dark"></fa-icon></button>
     </div>
     <div class="modify_method" *ngFor="let method of ['GET', 'POST']">
       <button>/{{ endpoint.endpoint }}</button>
@@ -61,6 +62,32 @@
         {{ method }}
       </button>
     </div>
+    <ng-template #nameEdit let-nameEditModal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit endpoint name</h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="nameEditModal.dismiss('Cross click')"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <form [formGroup]="formName"  class="d-flex flex-column mr-20 ml-20">
+              <h5>Old name</h5>
+              <input type="text" value='{{endpoint.endpoint}}' disabled>
+              <h5 class="pt-10">New Name</h5>
+              <input type="text" formControlName="modifiedEndpoint">
+            </form>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="editEndpointName(endpoint.endpoint)">Edit name</button>
+      </div>
+    </ng-template>
   </div>
 </div>
 
