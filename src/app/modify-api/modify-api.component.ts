@@ -1,8 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ApimanagerService } from '../apimanager.service';
 import { ApickStruct } from '../create-api/apickStruct.interface';
-import { FormControl, FormGroup, Validators, FormBuilder, Form } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -10,8 +9,9 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './modify-api.component.html',
   styleUrls: ['./modify-api.component.scss']
 })
-export class ModifyApiComponent implements OnChanges{
-  @Input() data!: ApickStruct;
+export class ModifyApiComponent implements OnChanges, OnInit{
+  @Input() dataApick!: ApickStruct;
+  dataApickCopy!: ApickStruct;
   closeResult = '';
 
   formModifier = new FormGroup({
@@ -48,7 +48,7 @@ export class ModifyApiComponent implements OnChanges{
     });
   }
   switchMethod(endpoint:string, method:string){
-    let endpointToModify= this.data.endpoint.find((e)=>e.endpoint===endpoint)
+    let endpointToModify= this.dataApick.endpoint.find((e)=>e.endpoint===endpoint)
     if(endpointToModify){
       if(endpointToModify.methods.includes(method)){
         let index=endpointToModify.methods.indexOf(method)
@@ -59,19 +59,40 @@ export class ModifyApiComponent implements OnChanges{
     }
   }
   switchEndpointStatus(endpoint:string){
-    let endpointToModify= this.data.endpoint.find((e)=>e.endpoint===endpoint)
+    let endpointToModify= this.dataApick.endpoint.find((e)=>e.endpoint===endpoint)
     if(endpointToModify){
       endpointToModify.active=!endpointToModify.active
     }
   }
-  switchStatus(_id: string) {
-    this.apiManager.updateApickStatus(_id, !this.data.active).subscribe({
+  switchStatus(_id: any) {
+    this.apiManager.updateApickStatus(_id , !this.dataApick.active).subscribe({
       next: () => {
-        this.data.active = !this.data.active
+        this.dataApick.active = !this.dataApick.active
+        this.modalService.dismissAll()
       }
     });
   }
+  deleteApick(titleToDelete:string){
+    this.apiManager.deleteEntireApick(titleToDelete).subscribe({
+      next: () => {
+        location.reload()
+      }
+    });
+  }
+  updateApick(dataApick:ApickStruct){
+    this.apiManager.updateEntireApick(dataApick, this.dataApickCopy).subscribe({
+      next: () => {
+        location.reload()
+      }
+    });
+  }
+  
   ngOnChanges(): void {
-    this.buildPreviewApick(this.data)
+    this.buildPreviewApick(this.dataApick)
+  }
+  ngOnInit(): void {
+    this.apiManager.getApickById(this.dataApick._id || '').subscribe({
+      next: (data) => this.dataApickCopy=data[0]
+    })
   }
 }
