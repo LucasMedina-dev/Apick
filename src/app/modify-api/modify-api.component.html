@@ -1,6 +1,7 @@
 <div class="modify_main">
-  <h4>APICK DATA</h4>
+  
   <div class="modify_data">
+    <h4>APICK DATA</h4>
     <form class="creator_data" [formGroup]="formModifier">
       <input
         class="creator_input form-control"
@@ -22,8 +23,8 @@
       />
       <div class="">
         <button class="btn btn-success btn-sm" (click)="open(confirm)">Confirm</button>
-        <button class="btn btn-primary btn-sm" (click)="open(pause)" *ngIf="data.active">Pause Api</button>
-        <button class="btn btn-primary btn-sm" (click)="open(start)" *ngIf="!data.active">Start Api</button>
+        <button class="btn btn-primary btn-sm" (click)="open(pause)" *ngIf="dataApick.active">Pause Api</button>
+        <button class="btn btn-primary btn-sm" (click)="open(start)" *ngIf="!dataApick.active">Start Api</button>
         <button class="btn btn-danger btn-sm" (click)="open(delete)">Delete Api</button>
       </div>
     </form>
@@ -39,7 +40,7 @@
 </div>
 <div class="modify_endpoint">
   <h4>ENDPOINTS</h4>
-  <div *ngFor="let endpoint of data.endpoint">
+  <div *ngFor="let endpoint of dataApick.endpoint">
     <div class="modify_title">
       <button
         class="modify_button btn"
@@ -81,7 +82,7 @@
     </form>
   </div>
   <div class="modal-footer">
-		<button type="button" class="btn btn-outline-danger">Delete Api</button>
+		<button type="button" class="btn btn-outline-danger" (click)="deleteApick(dataApick.title)">Delete Api</button>
 	</div>
 </ng-template>
 
@@ -103,7 +104,7 @@
     </form>
   </div>
   <div class="modal-footer">
-		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(data._id)">Pause Api</button>
+		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(dataApick._id)">Pause Api</button>
 	</div>
 </ng-template>
 
@@ -126,7 +127,7 @@
     </form>
   </div>
   <div class="modal-footer">
-		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(data._id)">Start Api</button>
+		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(dataApick._id)">Start Api</button>
 	</div>
 </ng-template>
 
@@ -149,6 +150,7 @@
     </form>
   </div>
   <div class="modal-footer">
-		<button type="button" class="btn btn-outline-success">Confirm Api</button>
+		<button type="button" class="btn btn-outline-success" (click)="updateApick(dataApick)">Confirm Api</button>
 	</div>
 </ng-template>
+
