@@ -1,6 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { ApickStruct } from './create-api/apickStruct.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -76,7 +77,28 @@ export class ApimanagerService {
     };
     return this.http.post<any>(url,endpoint, httpOptions);
   }
-
-  
+  deleteEntireApick(apiName : string):Observable<any>{
+    const url = 'http://localhost:3000/api/apick';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body:{title:apiName}
+    };
+    return this.http.delete<any>(url,httpOptions);
+  }
+  updateEntireApick(apickDataModified:ApickStruct, apickDataOriginal:ApickStruct){
+    let data= {
+      apickDataModified,
+      apickDataOriginal
+    }
+    const url = 'http://localhost:3000/api/apick';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.put<any>(url,data,httpOptions);
+  }
 
 }
