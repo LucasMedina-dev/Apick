@@ -3,6 +3,7 @@ import { ApimanagerService } from '../apimanager.service';
 import { ApickStruct } from '../create-api/apickStruct.interface';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-modify-api',
@@ -13,7 +14,7 @@ export class ModifyApiComponent implements OnChanges, OnInit{
   @Input() dataApick!: ApickStruct;
   dataApickCopy!: ApickStruct;
   closeResult = '';
-
+  faPenToSquare=faPenToSquare;
   formModifier = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -40,6 +41,10 @@ export class ModifyApiComponent implements OnChanges, OnInit{
 			return `with: ${reason}`;
 		}
 	}
+  formName= new FormGroup({
+		'modifiedEndpoint':new FormControl('', Validators.required)
+	})
+
   buildPreviewApick(data : ApickStruct){
     this.formModifier = this.formBuilder.group({
       title: [data.title || '', Validators.required],
@@ -88,6 +93,18 @@ export class ModifyApiComponent implements OnChanges, OnInit{
     this.dataApick.title=this.formModifier.value.title||''
     this.dataApick.description=this.formModifier.value.description||''
     this.dataApick.imageUrl=this.formModifier.value.image||''
+  }
+  editEndpointName(endpointName : string){
+    const endpoint= this.dataApick.endpoint.find((e)=> e.endpoint==endpointName)
+    const endpointNew=this.formName.value.modifiedEndpoint;
+    if(endpoint){
+      if(!this.dataApick.endpoint.find((e)=> e.endpoint===endpointNew)){
+        endpoint.endpoint= endpointNew || '';
+        this.modalService.dismissAll();
+      }else{
+        alert('The name already exists');
+      }
+    }
   }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick)
