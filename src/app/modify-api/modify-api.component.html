@@ -2,7 +2,7 @@
   
   <div class="modify_data">
     <h4>APICK DATA</h4>
-    <form class="creator_data" [formGroup]="formModifier">
+    <form class="creator_data" [formGroup]="formModifier" (change)="updateApickData()">
       <input
         class="creator_input form-control"
         type="text"

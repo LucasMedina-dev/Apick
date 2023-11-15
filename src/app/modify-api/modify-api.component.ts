@@ -81,14 +81,17 @@ export class ModifyApiComponent implements OnChanges, OnInit{
   }
   updateApick(dataApick:ApickStruct){
     this.apiManager.updateEntireApick(dataApick, this.dataApickCopy).subscribe({
-      next: () => {
-        location.reload()
-      }
+      next: () => location.reload()
     });
   }
-  
+  updateApickData(){
+    this.dataApick.title=this.formModifier.value.title||''
+    this.dataApick.description=this.formModifier.value.description||''
+    this.dataApick.imageUrl=this.formModifier.value.image||''
+  }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick)
+    console.log(this.dataApick)
   }
   ngOnInit(): void {
     this.apiManager.getApickById(this.dataApick._id || '').subscribe({
