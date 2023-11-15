@@ -87,7 +87,7 @@ export class ApimanagerService {
     };
     return this.http.delete<any>(url,httpOptions);
   }
-  updateEntireApick(apickDataModified:ApickStruct, apickDataOriginal:ApickStruct){
+  updateEntireApick(apickDataModified:ApickStruct, apickDataOriginal:ApickStruct):Observable<any>{
     let data= {
       apickDataModified,
       apickDataOriginal
