@@ -52,6 +52,15 @@ export class ApimanagerService {
     
     return this.http.get<any>(url, httpOptions);
   }
+  getDocs(urlRequested:string):Observable<any>{
+    const url = urlRequested;
+    console.log(url)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+    })}
+    return this.http.get<any>(url, httpOptions);
+  }
 
   registerApick(apickData : any):Observable<any>{
     const url = 'http://localhost:3000/api/apick';

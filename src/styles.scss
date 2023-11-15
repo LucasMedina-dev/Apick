@@ -81,6 +81,13 @@ body {
   }
   .main_json {
     width: 40%;
+    height: 100%;
+    .json_response{
+      background-color: black;
+      color: white;
+      height: 100%;
+      overflow: auto;
+    }
   }
   .main_view {
     border-right: solid 1px lightgray;
