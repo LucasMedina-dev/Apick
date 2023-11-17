@@ -32,11 +32,11 @@
 	<div class="modal-body">
 		<form>
 			<div class="mb-3">
-				<form class="form_register" [formGroup]="formRegister">
-					Username: <input class="form-control" type="text" formControlName="username">
+				<form class="form_register" [formGroup]="formRegister" (change)="resetForm()">
+					Username: <input class="form-control" type="text" formControlName="username" [class.error]="isActive">
 					Password: <input class="form-control" type="password" formControlName="password">
 					Fullname: <input class="form-control" type="text" formControlName="fullname">
-					Email: <input class="form-control" type="email" formControlName="email">
+					Email: <input class="form-control" type="email" formControlName="email" [class.error]="isActive">
 				</form>
             </div>
 		</form>
