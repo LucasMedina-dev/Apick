@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApimanagerService } from '../apimanager.service';
 import { ActivatedRoute } from '@angular/router';
 import { ApickStruct } from '../create-api/apickStruct.interface';
+import { NavbarSearcherService } from '../navbar-searcher.service';
 
 @Component({
   selector: 'app-apiview',
@@ -16,7 +17,8 @@ export class ApiviewComponent implements OnInit {
   objectToPost!: any;
   constructor(
     private apiManager: ApimanagerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private searcher : NavbarSearcherService
   ) {}
   launchTest(endpointName: string, method: any) {
     let option = method.selectedOptions[0].innerText;
@@ -34,6 +36,7 @@ export class ApiviewComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.searcher.changeState(false)
     this.id = this.route.snapshot.paramMap.get('id') || '';
     this.apiManager.getApickById(this.id).subscribe({
       next: (data) => {
