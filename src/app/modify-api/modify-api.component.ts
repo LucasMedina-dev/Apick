@@ -70,12 +70,17 @@ export class ModifyApiComponent implements OnChanges, OnInit{
     }
   }
   switchStatus(_id: any) {
-    this.apiManager.updateApickStatus(_id , !this.dataApick.active).subscribe({
-      next: () => {
-        this.dataApick.active = !this.dataApick.active
-        this.modalService.dismissAll()
-      }
-    });
+    let actives=this.dataApick.endpoint.find((e) => e.active === true);
+    if(actives || this.dataApick.active){
+      this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
+        next: () => {
+          this.dataApick.active = !this.dataApick.active;
+          this.modalService.dismissAll();
+        },
+      });
+    }else{
+      alert("no tiene metodos activos")
+    }
   }
   deleteApick(titleToDelete:string){
     this.apiManager.deleteEntireApick(titleToDelete).subscribe({
@@ -108,6 +113,7 @@ export class ModifyApiComponent implements OnChanges, OnInit{
   }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick)
+    console.log(this.dataApick)
   }
   ngOnInit(): void {
     this.apiManager.getApickById(this.dataApick._id || '').subscribe({

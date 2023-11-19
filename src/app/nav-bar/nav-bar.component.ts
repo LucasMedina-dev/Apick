@@ -15,14 +15,14 @@ export class NavBarComponent implements OnInit{
 	isActive:boolean = false;
 
 	formUser= new FormGroup({
-		'username':new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24), Validators.pattern('[a-zA-Z0-9]*')])),
-		'password':new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24)]))
+		'username':new FormControl('', Validators.required),
+		'password':new FormControl('', Validators.required)
 	})
 	formRegister= new FormGroup({
-		'username':new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24), Validators.pattern('[a-zA-Z0-9]*')])),
-		'password':new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24)])),
-		'email':new FormControl('', Validators.compose([Validators.required, Validators.email])),
-		'fullname':new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-Z\\s]+$')]))
+		'username':new FormControl('', Validators.required),
+		'password':new FormControl('', Validators.required),
+		'email':new FormControl('', Validators.required),
+		'fullname':new FormControl('', Validators.required)
 	})
 
 
@@ -31,7 +31,6 @@ export class NavBarComponent implements OnInit{
 
 
 	open(content:any) {
-		this.isActive=false;
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
 			(result) => {
 				this.closeResult = `Closed with: ${result}`;
@@ -61,7 +60,6 @@ export class NavBarComponent implements OnInit{
 				this.authService.username=data.username;
 				this.modalService.dismissAll()
 				localStorage.setItem("username", data.username)
-
 			},
 			error: ()=>{
 				this.isActive = true;	
@@ -71,14 +69,6 @@ export class NavBarComponent implements OnInit{
 	}
 	onRegister(data:any){
 		this.authService.tryRegister(data)
-		.then((data)=>{
-			if(data.message){
-				this.isActive=true
-			}else if(data._id){
-				this.modalService.dismissAll()
-				alert("Cuenta creada")
-				
-			}})
 		.catch((res)=>{
 			alert('Error al registro');
 		})
@@ -88,7 +78,6 @@ export class NavBarComponent implements OnInit{
 		this.logueado=this.authService.logueado
 		this.renderSearch(true)
 		localStorage.removeItem("username")
-		this.modalService.dismissAll()
 	}
 
 	resetForm(){
@@ -104,6 +93,8 @@ export class NavBarComponent implements OnInit{
 			this.logueado=true
 			this.authService.logueado=true;
 			this.authService.username=username;
+		}else{
+			console.log("es undefined")
 		}
 	}
 }
