@@ -91,7 +91,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
   }
   switchStatus(_id: any) {
     let actives=this.dataApick.endpoint.find((e) => e.active === true);
-    if(actives){
+    if(actives || this.dataApick.active){
       this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
         next: () => {
           this.dataApick.active = !this.dataApick.active;
