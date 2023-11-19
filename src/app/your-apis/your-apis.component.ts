@@ -14,11 +14,16 @@ export class YourApisComponent implements OnInit {
   creatorView:Boolean=false;
   apiView:Boolean=false;
   faChevronRight=faChevronRight;
+  jsonString:any;
   dataToEdit!:ApickStruct;
+
   constructor(
     private apiManager: ApimanagerService,
     private authService: AuthService
   ){}
+
+  
+
   searchMyApicks() {
     this.apiManager
       .getMyApicks(this.authService.username || localStorage.getItem("username") || "")
