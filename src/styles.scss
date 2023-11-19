@@ -81,22 +81,6 @@ body {
   }
   .main_json {
     width: 40%;
-    height: 100%;
-    .json_body{
-      background-color: black;
-      color: white;
-      height: 39%;
-      width: 100%;
-      overflow: auto;
-      margin: 0;
-      resize: none;
-    }
-    .json_response{
-      background-color: black;
-      color: white;
-      height: 60%;
-      overflow: auto;
-    }
   }
   .main_view {
     border-right: solid 1px lightgray;
@@ -266,25 +250,8 @@ body {
 .method_button-inactive {
   background-color: rgb(255, 194, 194);
 }
-.error {
-  background-color: rgb(255, 194, 194);
-}
 .endpoints {
   margin-top: 20px;
-  .endpoints_div{
-    display: flex;
-    margin-bottom: 10px;
-    p{
-      background: black;
-      color: white;
-      border-bottom: 1px solid #61ff6d;
-      margin-bottom: 0;
-      padding: 7px;
-    }
-  }
-  .endpoints_select{
-    width: 180px;
-  }
 }
 
 
