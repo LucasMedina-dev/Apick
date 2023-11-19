@@ -8,10 +8,12 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 export class ApiDataComponent implements OnInit{
   @Input() apickData:any;
   faChevronRight=faChevronRight;
-
+  defectImg="https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png";
   constructor(){
   }
-
+  switchImg(needSwitch : boolean){
+    needSwitch ? this.apickData.imageUrl= this.defectImg : false;
+  }
 
   ngOnInit(): void {
     this.apickData.url=`/apick/${this.apickData._id}`

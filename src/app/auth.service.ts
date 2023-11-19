@@ -30,8 +30,6 @@ export class AuthService {
   }
   tryRegister(data:any){
     const url = 'http://localhost:3000/api/register';
-    console.log(data)
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
