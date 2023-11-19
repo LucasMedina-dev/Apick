@@ -90,12 +90,18 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     }
   }
   switchStatus(_id: any) {
-    this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
-      next: () => {
-        this.dataApick.active = !this.dataApick.active;
-        this.modalService.dismissAll();
-      },
-    });
+    let actives=this.dataApick.endpoint.find((e) => e.active === true);
+    if(actives){
+      this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
+        next: () => {
+          this.dataApick.active = !this.dataApick.active;
+          this.modalService.dismissAll();
+        },
+      });
+    }else{
+      alert("no tiene metodos activos")
+    }
+    
   }
   deleteApick(titleToDelete: string) {
     this.apiManager.deleteEntireApick(titleToDelete).subscribe({
