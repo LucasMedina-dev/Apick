@@ -11,10 +11,8 @@ import { ApimanagerService } from '../apimanager.service';
   styleUrls: ['./create-api.component.scss'],
 })
 export class CreateApiComponent {
-  constructor(
-    private authService: AuthService,
-    private apiManager: ApimanagerService
-  ) {}
+  public docsSave: Array<EndpointStruct> = [];
+  public endpointFail!: Boolean;
   formCreator = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -47,8 +45,10 @@ export class CreateApiComponent {
     docs: [],
     methods: [],
   };
-  public docsSave: Array<EndpointStruct> = [];
-  public endpointFail!: Boolean;
+  constructor(
+    private authService: AuthService,
+    private apiManager: ApimanagerService
+  ) {}
 
   saveJsonData(text: any) {
     if (
@@ -122,14 +122,26 @@ export class CreateApiComponent {
   uploadApick() {
     this.buildApick();
     let apickToSave = this.apickSave;
+    for(let endpoint of apickToSave.endpoint){
+      if(endpoint.methods.length===0){
+        endpoint.active=false
+      }
+    }
+    let actives=apickToSave.endpoint.find((element)=> element.active===true);
+    if(!actives){
+      apickToSave.active=false;
+    }
     delete apickToSave._id;
     this.apiManager.registerApick(this.apickSave).subscribe({
       next: () => {
-        for (let data of this.docsSave) {
-          this.apiManager.registerEndpoint(data).subscribe({
+        for (let endpoint of this.docsSave) {
+          if(endpoint.methods.length===0){
+            endpoint.active=false;
+          }
+          this.apiManager.registerEndpoint(endpoint).subscribe({
             next: () => {
-              location.reload()
-            }
+              location.reload();
+            },
           });
         }
       },
