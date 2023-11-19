@@ -39,7 +39,7 @@ import { ModifyApiComponent } from './modify-api/modify-api.component';
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule 
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
