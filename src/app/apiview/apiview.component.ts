@@ -15,11 +15,14 @@ export class ApiviewComponent implements OnInit {
   id!: string;
   response!: any;
   objectToPost!: any;
+  defectImg="https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png";
+
   constructor(
     private apiManager: ApimanagerService,
     private route: ActivatedRoute,
-    private searcher : NavbarSearcherService
+    private searcher: NavbarSearcherService
   ) {}
+  
   launchTest(endpointName: string, method: any) {
     let option = method.selectedOptions[0].innerText;
     let url = `http://localhost:3000/api/apick/${this.id}/${endpointName}`;
@@ -35,8 +38,11 @@ export class ApiviewComponent implements OnInit {
       }
     }
   }
+  switchImg(needSwitch: boolean) {
+    needSwitch ? (this.apick.imageUrl = this.defectImg) : false;
+  }
   ngOnInit(): void {
-    this.searcher.changeState(false)
+    this.searcher.changeState(false);
     this.id = this.route.snapshot.paramMap.get('id') || '';
     this.apiManager.getApickById(this.id).subscribe({
       next: (data) => {
