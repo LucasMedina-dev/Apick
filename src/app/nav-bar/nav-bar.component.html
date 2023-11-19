@@ -2,7 +2,7 @@
     <li class="list_li"><button class="btn list_button" *ngIf="!logueado" (click)="open(login)">Sign in</button></li>
     <li class="list_li"><button class="btn list_button" *ngIf="!logueado" (click)="open(register)">Sign up</button></li>
     <li class="list_li" [ngClass]="[logueado ? '' : 'd-none']" ><a class="btn list_button" *ngIf="logueado" routerLink="/yourapis" (click)="renderSearch(false)" >My apicks</a></li>
-    <li class="list_li" [ngClass]="[logueado ? '' : 'd-none']" ><a class="btn list_button" *ngIf="logueado" routerLink="/" (click)="open(logOut)">Log out</a></li>
+    <li class="list_li" [ngClass]="[logueado ? '' : 'd-none']" ><a class="btn list_button" *ngIf="logueado" routerLink="/" (click)="closeSesion()">Log out</a></li>
 </ul>
 
 <ng-template #login let-loginModal>
@@ -14,8 +14,8 @@
 		<form>
 			<div class="mb-3">
 				<form [formGroup]="formUser" class="form_login">
-                    <input class="form_input form-control" type="text" placeholder="User" formControlName="username" [class.error]="isActive" (input)="resetForm()">
-                    <input class="form_input form-control" type="password" placeholder="Password" formControlName="password" [class.error]="isActive" (input)="resetForm()">
+                    <input class="form_input form-control" type="text" placeholder="User" formControlName="username" [class.active]="isActive" (input)="resetForm()">
+                    <input class="form_input form-control" type="password" placeholder="Password" formControlName="password" [class.active]="isActive" (input)="resetForm()">
                     <button type="submit" class="btn btn-outline-dark" (click)="onSubmit(formUser.value)" [disabled]="!formUser.valid">LogIn</button>
                 </form>
             </div>
@@ -54,11 +54,11 @@
 	<div class="modal-body">
 		<form>
 			<div class="mb-3">
-				Log out?
+				Desea cerrar sesion?
             </div>
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark"  (click)="closeSesion()" >Close session</button>
+		<button type="button" class="btn btn-outline-dark"  (click)="closeSesion()" >Cerrar sesion</button>
 	</div>
 </ng-template>

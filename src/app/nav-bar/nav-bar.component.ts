@@ -60,7 +60,6 @@ export class NavBarComponent implements OnInit{
 				this.authService.username=data.username;
 				this.modalService.dismissAll()
 				localStorage.setItem("username", data.username)
-
 			},
 			error: ()=>{
 				this.isActive = true;	
@@ -79,7 +78,6 @@ export class NavBarComponent implements OnInit{
 		this.logueado=this.authService.logueado
 		this.renderSearch(true)
 		localStorage.removeItem("username")
-		this.modalService.dismissAll()
 	}
 
 	resetForm(){
