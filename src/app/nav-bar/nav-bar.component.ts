@@ -31,6 +31,8 @@ export class NavBarComponent implements OnInit{
 
 
 	open(content:any) {
+		this.formUser.reset();
+		this.formRegister.reset();
 		this.isActive=false;
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
 			(result) => {

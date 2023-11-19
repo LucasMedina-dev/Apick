@@ -121,13 +121,15 @@ export class CreateApiComponent {
   }
   uploadApick() {
     this.buildApick();
-    let apickToSave=this.apickSave
-    delete apickToSave._id
+    let apickToSave = this.apickSave;
+    delete apickToSave._id;
     this.apiManager.registerApick(this.apickSave).subscribe({
       next: () => {
         for (let data of this.docsSave) {
           this.apiManager.registerEndpoint(data).subscribe({
-            next: (res) => console.log(res),
+            next: () => {
+              location.reload()
+            }
           });
         }
       },
