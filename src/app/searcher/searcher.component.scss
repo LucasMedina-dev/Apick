@@ -1,3 +1,14 @@
-.btn{
+.btn {
     vertical-align: unset;
+
+}
+
+.searcher {
+    position: relative;
+
+    fa-icon {
+        position: absolute;
+        right: 10px;
+        margin-top: 6px;
+    }
 }
