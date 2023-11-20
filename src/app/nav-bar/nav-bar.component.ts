@@ -25,11 +25,11 @@ export class NavBarComponent implements OnInit {
 	});
 
 	formUser = new FormGroup({
-		'username': new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24), Validators.pattern('[a-zA-Z0-9]*')])),
+		'username': new FormControl('', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(24), Validators.pattern('[a-zA-Z0-9\u00f1\u00d1]*')])),
 		'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24)]))
 	})
 	formRegister = new FormGroup({
-		'username': new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24), Validators.pattern('[a-zA-Z0-9]*')])),
+		'username': new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24), Validators.pattern('[a-zA-Z0-9\u00f1\u00d1]*')])),
 		'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(24)])),
 		'email': new FormControl('', Validators.compose([Validators.required, Validators.email])),
 		'fullname': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-Z\\s]+$')]))
