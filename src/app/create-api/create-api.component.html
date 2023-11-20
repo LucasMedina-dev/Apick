@@ -21,10 +21,10 @@
 <div class="main_json">
   <h4 class="creator_title text-center">JSON DATA</h4>
   <form [formGroup]="formJson" class="creator_json">
-    <input pattern="[A-Za-z0-9]+" class="creator_input form-control" type="text" formControlName="endpoint" (input)="validateEndpointName()"
-      [class.button_inactive]="endpointFail" placeholder="Endpoint name" />
+    <input class="creator_input form-control" type="text" formControlName="endpoint"
+      [class.button_inactive]="endpointFail" placeholder="Endpoint name" (change)="endpointFail=false"/>
     <textarea formControlName="docs" placeholder="Paste here your JSON and choise a endpoint name"></textarea>
-    <button [disabled]="!formCreator.valid" class="creator_button btn" type="button" (click)="saveJsonData(formJson.value.docs)">
+    <button [disabled]="!formCreator.valid" class="creator_button btn" type="button" (click)="saveJsonData(formJson.value.docs)" >
       Confirm data
     </button>
   </form>
