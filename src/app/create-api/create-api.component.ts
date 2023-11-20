@@ -14,8 +14,8 @@ export class CreateApiComponent {
   public docsSave: Array<EndpointStruct> = [];
   public endpointFail!: Boolean;
   formCreator = new FormGroup({
-    title: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')])),
+    description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')])),
     image: new FormControl(''),
     username: new FormControl(
       this.authService.getUsername(),
@@ -23,7 +23,7 @@ export class CreateApiComponent {
     ),
   });
   formJson = new FormGroup({
-    endpoint: new FormControl('', Validators.required),
+    endpoint: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(15), Validators.pattern('[a-zA-Z0-9]*')])),
     docs: new FormControl('', Validators.required),
   });
   public apickSave: ApickStruct = {
@@ -53,8 +53,6 @@ export class CreateApiComponent {
   saveJsonData(text: any) {
     if (
       this.jsonValid(text) &&
-      !this.validateEndpointName() &&
-      this.formJson.value.endpoint &&
       this.formJson.valid
     ) {
       this.buildEndpoint();
@@ -103,19 +101,6 @@ export class CreateApiComponent {
       JSON.parse(jsonString);
       return true;
     } catch (error) {
-      return false;
-    }
-  }
-  validateEndpointName() {
-    let name = this.formJson.value.endpoint;
-    if (this.apickSave.endpoint.find((e) => e.endpoint === name)) {
-      this.endpointFail = true;
-      return true;
-    } else if (name === '') {
-      this.endpointFail = false;
-      return false;
-    } else {
-      this.endpointFail = false;
       return false;
     }
   }
