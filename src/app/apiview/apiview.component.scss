@@ -1,4 +1,28 @@
-.apick{
+.apick {
     height: 200px;
     margin: 0;
+}
+
+.main_json {
+    .json_response {
+        width: 100%;
+        resize: none;
+        &:hover{
+            cursor:text;
+        }
+    }
+
+    .json_body::placeholder {
+        color: gray;
+        font-size: 2rem;
+        text-align: center;
+        line-height: 250px;
+    }
+
+    .json_response::placeholder {
+        color: gray;
+        font-size: 2rem;
+        text-align: center;
+        line-height: 400px;
+    }
 }
