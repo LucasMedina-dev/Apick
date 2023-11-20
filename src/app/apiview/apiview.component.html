@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="main_json">
-        <textarea class="json_body" [(ngModel)]="objectToPost"></textarea>
-        <pre class="json_response">{{response | json}}</pre>
+        <textarea class="json_body" [(ngModel)]="objectToPost" placeholder="Upload request body"></textarea>
+        <textarea class="json_response" placeholder="Resquest body" disabled>{{response | json}}</textarea>
     </div>
 </main>
