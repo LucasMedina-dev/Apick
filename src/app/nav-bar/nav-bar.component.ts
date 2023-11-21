@@ -21,7 +21,7 @@ export class NavBarComponent implements OnInit {
 		showConfirmButton: false,
 		timer: 2000,
 		timerProgressBar: true,
-		
+
 	});
 
 	formUser = new FormGroup({
@@ -35,11 +35,7 @@ export class NavBarComponent implements OnInit {
 		'fullname': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-Z\\s]+$')]))
 	})
 
-
-
 	constructor(private modalService: NgbModal, private authService: AuthService, private navBarValue: NavbarSearcherService) { }
-
-
 
 	open(content: any) {
 		this.formUser.reset();
@@ -74,14 +70,10 @@ export class NavBarComponent implements OnInit {
 					this.authService.username = data.username;
 					this.modalService.dismissAll()
 					localStorage.setItem("username", data.username)
-					//alert('inicio');
-					
 					this.Toast.fire({
 						icon: "success",
 						title: "Signed in successfully"
 					});
-
-
 				},
 				error: () => {
 					this.isActive = true;
@@ -113,7 +105,6 @@ export class NavBarComponent implements OnInit {
 				}
 			})
 			.catch((res) => {
-				alert('Error en el registro');
 				Swal.fire({
 					icon: "error",
 					title: "Oops...",
@@ -131,9 +122,9 @@ export class NavBarComponent implements OnInit {
 		this.Toast.fire({
 			icon: "info",
 			title: "Loging out, see you soon!"
-		  });
+		});
 
-		  setTimeout(()=> location.reload(),2000);
+		setTimeout(() => location.reload(), 2000);
 	}
 
 	resetForm() {
