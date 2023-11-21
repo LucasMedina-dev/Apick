@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { ApickStruct } from './apickStruct.interface';
 import { EndpointStruct } from './endpointStruct.interface';
 import { ApimanagerService } from '../apimanager.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-api',
@@ -13,19 +14,24 @@ import { ApimanagerService } from '../apimanager.service';
 export class CreateApiComponent {
   public docsSave: Array<EndpointStruct> = [];
   public endpointFail!: Boolean;
+
+
+
   formCreator = new FormGroup({
-    title: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')])),
-    description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')])),
+    title: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30)])),
+    description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30)])),
     image: new FormControl(''),
     username: new FormControl(
       this.authService.getUsername(),
       Validators.required
     ),
   });
+
   formJson = new FormGroup({
     endpoint: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(15), Validators.pattern('[a-zA-Z0-9]*')])),
     docs: new FormControl('', Validators.required),
   });
+
   public apickSave: ApickStruct = {
     _id: '',
     username: '',
@@ -51,18 +57,17 @@ export class CreateApiComponent {
   ) {}
 
   saveJsonData(text: any) {
-    if (
-      this.jsonValid(text) &&
-      this.formJson.valid
-    ) {
+    if (this.jsonValid(text) && this.formJson.valid)
+    {
       this.buildEndpoint();
       this.pushEndpoint();
       this.docsSave.push({ ...this.endpointSave });
+
     } else if (!this.formJson.valid) {
       this.endpointFail = true;
-      alert('El nombre para su endpoint no permite espacios ni simbolos');
+      Swal.fire("The name for your endpoint does not allow spaces or symbols.");
     } else {
-      alert('El documento JSON no es valido');
+      Swal.fire("The JSON document is not valid.");
     }
   }
 
@@ -124,14 +129,36 @@ export class CreateApiComponent {
             endpoint.active=false;
           }
           this.apiManager.registerEndpoint(endpoint).subscribe({
-            next: () => {
-              location.reload();
+            next:() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Your api has been created",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              setTimeout(()=> location.reload(),1500);
             },
+            error(err) {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Your api could not be created.",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }
+            
           });
         }
       },
+      
     });
+    
   }
+
+
+
   switchMethod(method: string, endpoint: string) {
     const whereIs = this.apickSave.endpoint.find(
       (item) => item.endpoint === endpoint

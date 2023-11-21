@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modify-api',
@@ -29,7 +30,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private apiManager: ApimanagerService
-  ) {}
+  ) { }
 
   open(content: any) {
     this.modalService
@@ -85,36 +86,72 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     let endpointToModify = this.dataApick.endpoint.find(
       (e) => e.endpoint === endpoint
     );
-    if (endpointToModify && endpointToModify.methods.length!=0) {
+    if (endpointToModify && endpointToModify.methods.length != 0) {
       endpointToModify.active = !endpointToModify.active;
-    }else{
-      alert("Debe estar activado al menos un metodo")
+    } else {
+      Swal.fire("At least one method must be activated.");
     }
   }
   switchStatus(_id: any) {
-    let actives=this.dataApick.endpoint.find((e) => e.active === true);
-    if(actives || this.dataApick.active ){
+    let actives = this.dataApick.endpoint.find((e) => e.active === true);
+    if (actives || this.dataApick.active) {
       this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
         next: () => {
           this.dataApick.active = !this.dataApick.active;
+
+          if (this.dataApick.active) {
+            Swal.fire("The Api has been started.");
+          } else {
+            Swal.fire("The Api has been paused.");
+          }
           this.modalService.dismissAll();
         },
       });
-    }else{
-      alert("no tiene metodos activos")
+    } else {
+      Swal.fire("At least one endpoint must be activated.");
+      this.modalService.dismissAll();
     }
-    
+
   }
   deleteApick(titleToDelete: string) {
     this.apiManager.deleteEntireApick(titleToDelete).subscribe({
       next: () => {
-        location.reload();
+        Swal.fire("The API has been deleted.");
+        setTimeout(() => location.reload(), 1500);
+
       },
     });
   }
   updateApick(dataApick: ApickStruct) {
+    let active = dataApick.endpoint.find((e) => e.active === true);
+    if (!active) {
+      dataApick.active = false;
+    }
     this.apiManager.updateEntireApick(dataApick, this.dataApickCopy).subscribe({
-      next: () => location.reload(),
+      next: () => {
+        if (!active) {
+          Swal.fire({
+            icon: "warning",
+            title: "Warning",
+            text: "The API has been modified and paused.",
+            footer: "The API does not have any active endpoint."
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              location.reload(); 
+            }
+          });
+          
+        } else {
+          Swal.fire("The API has been modified.")
+          .then((result) => {
+            if (result.isConfirmed) {
+              location.reload(); 
+            }
+          });
+          
+        }
+      },
     });
   }
   updateApickData() {
@@ -132,7 +169,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
         endpoint.endpoint = endpointNew || '';
         this.modalService.dismissAll();
       } else {
-        alert('The name already exists');
+        Swal.fire("The name already exists.");
       }
     }
   }
