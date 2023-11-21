@@ -1,4 +1,34 @@
-<div class="method_data">Aca ira el metodo para editar</div>
+<div class="method_data">
+  <div class="method_title">
+    <span class="method_title-heavy">{{ customizerData.method }}</span>
+    <span class="method_title-light">{{ endpointData }}</span>
+  </div>
+  <form [formGroup]="formCustomizer" class="method_form">
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="method_option">Query parameters</span
+      ><label class="switch">
+        <input type="checkbox" formControlName="queryParameters" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="method_option">Limit documents</span
+      ><input
+        type="number"
+        formControlName="limitDocuments"
+        class="method_option-width method_option-number"
+      />
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="method_option">Random response</span
+      ><label class="switch">
+        <input type="checkbox" formControlName="randomResponse" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </form>
+  <input type="button" value="Save" class="btn btn-success" (click)="saveCustomData()">
+</div>
 <div class="method_response">
   Y este sera el espacio donde se mostrara la respuesta del metodo
 </div>

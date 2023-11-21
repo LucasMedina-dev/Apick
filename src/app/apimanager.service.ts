@@ -2,6 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ApickStruct } from './create-api/apickStruct.interface';
+import { CustomizerStruct } from './structures/customizerStruct.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -130,5 +131,9 @@ export class ApimanagerService {
   getCustomizerById(idEndpoint : string, method : string): Observable<any> {
     const url = `http://localhost:3000/api/custom?id=${idEndpoint}&method=${method}`;
     return this.http.get<any>(url);
+  }
+  saveCustomizerData(customizerData : CustomizerStruct, newData : any){
+    const url = `http://localhost:3000/api/custom/${customizerData._id}`;
+    return this.http.put<any>(url, newData);
   }
 }
