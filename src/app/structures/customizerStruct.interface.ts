@@ -1,8 +1,8 @@
 export interface CustomizerStruct{
-    _id?:String;
-    idEndpoint:String;
-    method:String;
-    queryParameters:Boolean;
-    limitDocuments:Number;
-    randomResponse:Boolean;
+    _id?:string;
+    idEndpoint:string;
+    method:string;
+    queryParameters:boolean;
+    limitDocuments:number;
+    randomResponse:boolean;
 }

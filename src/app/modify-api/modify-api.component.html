@@ -30,7 +30,7 @@
     </form>
   </div>
 
-  <app-custom-endpoint class="modify_methods" *ngIf="openedCustomizer" [dataCustomizer]='dataCustom'>
+  <app-custom-endpoint class="modify_methods" *ngIf="openedCustomizer" [customizerData]='dataCustom' [endpointData]="endpointCustom">
     
   </app-custom-endpoint>
 </div>

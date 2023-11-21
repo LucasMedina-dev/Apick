@@ -21,6 +21,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
   @Input() dataApick!: ApickStruct;
   dataApickCopy!: ApickStruct;
   dataCustom!: CustomizerStruct;
+  endpointCustom!: string;
   closeResult = '';
   faPenToSquare = faPenToSquare;
   openedCustomizer:boolean=false;
@@ -188,6 +189,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
               if(data){
                 this.openedCustomizer=true;
                 this.dataCustom=data;
+                this.endpointCustom=endpoint;
               }else{
                 alert('Error en bdd')
               }
