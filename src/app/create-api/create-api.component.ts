@@ -129,31 +129,30 @@ export class CreateApiComponent {
             endpoint.active=false;
           }
           this.apiManager.registerEndpoint(endpoint).subscribe({
-            next: () => {
-              //location.reload();
+            next:() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Your api has been created",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              setTimeout(()=> location.reload(),1500);
             },
+            error(err) {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Your api could not be created.",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }
+            
           });
         }
       },
-      complete() {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Your api has been created",
-          showConfirmButton: false,
-          timer: 1500
-        });
-        setTimeout(()=> location.reload(),1500);
-      },
-      error(err) {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "Your api could not be created.",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      },
+      
     });
     
   }

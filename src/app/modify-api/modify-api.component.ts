@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modify-api',
@@ -88,7 +89,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     if (endpointToModify && endpointToModify.methods.length!=0) {
       endpointToModify.active = !endpointToModify.active;
     }else{
-      alert("Debe estar activado al menos un metodo")
+      Swal.fire("At least one method must be activated.");
     }
   }
   switchStatus(_id: any) {
@@ -97,24 +98,36 @@ export class ModifyApiComponent implements OnChanges, OnInit {
       this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
         next: () => {
           this.dataApick.active = !this.dataApick.active;
+
+          if(this.dataApick.active){
+            Swal.fire("The Api has been started.");
+          }else{
+            Swal.fire("The Api has been paused.");
+          }
           this.modalService.dismissAll();
         },
       });
     }else{
-      alert("no tiene metodos activos")
+      Swal.fire("At least one method must be activated.");
+      this.modalService.dismissAll();
     }
     
   }
   deleteApick(titleToDelete: string) {
     this.apiManager.deleteEntireApick(titleToDelete).subscribe({
       next: () => {
-        location.reload();
+        Swal.fire("The API has been deleted.");
+        setTimeout(()=> location.reload(),1500);
+
       },
     });
   }
   updateApick(dataApick: ApickStruct) {
     this.apiManager.updateEntireApick(dataApick, this.dataApickCopy).subscribe({
-      next: () => location.reload(),
+      next: () => {
+        Swal.fire("The API has been modified.");
+        setTimeout(()=> location.reload(),1500);
+      },
     });
   }
   updateApickData() {
@@ -132,7 +145,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
         endpoint.endpoint = endpointNew || '';
         this.modalService.dismissAll();
       } else {
-        alert('The name already exists');
+        Swal.fire("The name already exists.");
       }
     }
   }
