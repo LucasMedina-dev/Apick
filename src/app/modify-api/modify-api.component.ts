@@ -30,7 +30,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private apiManager: ApimanagerService
-  ) {}
+  ) { }
 
   open(content: any) {
     this.modalService
@@ -86,48 +86,71 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     let endpointToModify = this.dataApick.endpoint.find(
       (e) => e.endpoint === endpoint
     );
-    if (endpointToModify && endpointToModify.methods.length!=0) {
+    if (endpointToModify && endpointToModify.methods.length != 0) {
       endpointToModify.active = !endpointToModify.active;
-    }else{
+    } else {
       Swal.fire("At least one method must be activated.");
     }
   }
   switchStatus(_id: any) {
-    let actives=this.dataApick.endpoint.find((e) => e.active === true);
-    if(actives || this.dataApick.active ){
+    let actives = this.dataApick.endpoint.find((e) => e.active === true);
+    if (actives || this.dataApick.active) {
       this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
         next: () => {
           this.dataApick.active = !this.dataApick.active;
 
-          if(this.dataApick.active){
+          if (this.dataApick.active) {
             Swal.fire("The Api has been started.");
-          }else{
+          } else {
             Swal.fire("The Api has been paused.");
           }
           this.modalService.dismissAll();
         },
       });
-    }else{
-      Swal.fire("At least one method must be activated.");
+    } else {
+      Swal.fire("At least one endpoint must be activated.");
       this.modalService.dismissAll();
     }
-    
+
   }
   deleteApick(titleToDelete: string) {
     this.apiManager.deleteEntireApick(titleToDelete).subscribe({
       next: () => {
         Swal.fire("The API has been deleted.");
-        setTimeout(()=> location.reload(),1500);
+        setTimeout(() => location.reload(), 1500);
 
       },
     });
   }
   updateApick(dataApick: ApickStruct) {
-    
+    let active = dataApick.endpoint.find((e) => e.active === true);
+    if (!active) {
+      dataApick.active = false;
+    }
     this.apiManager.updateEntireApick(dataApick, this.dataApickCopy).subscribe({
       next: () => {
-        Swal.fire("The API has been modified.");
-        setTimeout(()=> location.reload(),1500);
+        if (!active) {
+          Swal.fire({
+            icon: "warning",
+            title: "Warning",
+            text: "The API has been modified and paused.",
+            footer: "The API does not have any active endpoint."
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              location.reload(); 
+            }
+          });
+          
+        } else {
+          Swal.fire("The API has been modified.")
+          .then((result) => {
+            if (result.isConfirmed) {
+              location.reload(); 
+            }
+          });
+          
+        }
       },
     });
   }
