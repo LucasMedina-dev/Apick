@@ -1,0 +1,36 @@
+<div class="method_data">
+  <div class="method_title">
+    <span class="method_title-heavy">{{ customizerData.method }}</span>
+    <span class="method_title-light">{{ endpointData }}</span>
+  </div>
+  <form [formGroup]="formCustomizer" class="method_form">
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="method_option">Query parameters</span
+      ><label class="switch">
+        <input type="checkbox" formControlName="queryParameters" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="method_option">Limit documents</span
+      ><input
+        type="number"
+        formControlName="limitDocuments"
+        class="method_option-width method_option-number"
+      />
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="method_option">Random response</span
+      ><label class="switch">
+        <input type="checkbox" formControlName="randomResponse" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </form>
+  <div class="d-flex flex-column w-100">
+    <input type="button" value="Launch test" class="btn btn-outline-primary" (click)="launchTest()">
+    <input type="button" value="Save" class="btn btn-success" (click)="saveCustomData()">
+  </div>
+</div>
+<textarea class="json_response" placeholder="Resquest body" disabled>{{documents | json}}</textarea>
+

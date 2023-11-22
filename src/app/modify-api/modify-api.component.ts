@@ -10,6 +10,7 @@ import {
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { CustomizerStruct } from '../structures/customizerStruct.interface';
 
 @Component({
   selector: 'app-modify-api',
@@ -19,8 +20,12 @@ import Swal from 'sweetalert2';
 export class ModifyApiComponent implements OnChanges, OnInit {
   @Input() dataApick!: ApickStruct;
   dataApickCopy!: ApickStruct;
+  dataCustom!: CustomizerStruct;
+  endpointCustom!: string;
   closeResult = '';
   faPenToSquare = faPenToSquare;
+  openedCustomizer:boolean=false;
+
   formModifier = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -136,7 +141,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
             text: "The API has been modified and paused.",
             footer: "The API does not have any active endpoint."
           })
-          .then((result) => {
+          .then((result: any) => {
             if (result.isConfirmed) {
               location.reload(); 
             }
@@ -144,7 +149,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
           
         } else {
           Swal.fire("The API has been modified.")
-          .then((result) => {
+          .then((result:any) => {
             if (result.isConfirmed) {
               location.reload(); 
             }
@@ -173,12 +178,38 @@ export class ModifyApiComponent implements OnChanges, OnInit {
       }
     }
   }
+  openCustomizer(title: string,endpoint : string, method: string){
+    let endpointId:any;
+    this.apiManager.getEndpointId(title, endpoint).subscribe({
+      next: (res)=>{
+        res ? endpointId=res._id : false;
+        if(endpointId){
+          this.apiManager.getCustomizerById(endpointId, method).subscribe({
+            next: (data)=> {
+              if(data){
+                this.openedCustomizer=true;
+                this.dataCustom=data;
+                this.endpointCustom=endpoint;
+              }else{
+                alert('Error en bdd')
+              }
+            }
+          })
+        }else{
+          alert('guarde los datos primero')
+        }
+    
+      }
+    })
+    
+    
+  }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick);
   }
   ngOnInit(): void {
     this.apiManager.getApickById(this.dataApick._id || '').subscribe({
-      next: (data) => (this.dataApickCopy = data[0]),
+      next: (data) => this.dataApickCopy = data[0]
     });
   }
 }

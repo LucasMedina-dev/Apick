@@ -82,7 +82,7 @@ body {
   .main_json {
     width: 40%;
     height: 100%;
-    .json_body{
+    .json_body {
       background-color: black;
       color: white;
       height: 39%;
@@ -91,7 +91,7 @@ body {
       margin: 0;
       resize: none;
     }
-    .json_response{
+    .json_response {
       background-color: black;
       color: white;
       height: 60%;
@@ -271,10 +271,10 @@ body {
 }
 .endpoints {
   margin-top: 20px;
-  .endpoints_div{
+  .endpoints_div {
     display: flex;
     margin-bottom: 10px;
-    p{
+    p {
       background: black;
       color: white;
       border-bottom: 1px solid #61ff6d;
@@ -282,12 +282,10 @@ body {
       padding: 7px;
     }
   }
-  .endpoints_select{
+  .endpoints_select {
     width: 180px;
   }
 }
-
-
 
 .modal-backdrop {
   --bs-backdrop-opacity: 0.9;
@@ -313,39 +311,28 @@ app-your-apis {
   display: flex;
   flex-direction: column;
   border-right: solid 1px lightgray;
-    padding: 0px 4%;
+  padding: 0px 4%;
   .modify_data {
     height: 40%;
-    button{
+    button {
       margin-right: 10px;
-    }
-  }
-  .modify_methods {
-    height: 60%;
-    display: flex;
-    flex-direction: row;
-    .method_data {
-      width: 50%;
-    }
-    .method_response {
-      width: 50%;
     }
   }
 }
 .modify_endpoint {
   width: 40%;
   margin-left: 10px;
-  .modify_method{
+  .modify_method {
     margin-bottom: 5px;
     display: flex;
-    :first-child{
+    :first-child {
       display: inline-flex;
       background-color: rgb(255 255 255 / 71%);
       border: solid 1px #989898;
       color: #2d2d2d;
       padding: 2px 150px 2px 5px;
       margin: 0;
-      &:hover{
+      &:hover {
         background-color: rgba(223, 223, 223, 0.71);
       }
     }
@@ -369,4 +356,50 @@ app-your-apis {
 }
 .button_inactive {
   background-color: rgb(255, 194, 194);
+}
+
+// METHOD CUSTOMIZATION -- METHOD CUSTOMIZATION -- METHOD CUSTOMIZATION
+
+.modify_methods {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  .method_data {
+    display: flex;
+    width: 50%;
+    height: 70%;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.71);
+    margin-right: 5px;
+    justify-content: space-between;
+    .method_title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+    .method_form {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      .method_option {
+        background-color: rgba(177, 177, 177, 0.71);
+        color: black;
+        padding: 10px 5px;
+      }
+      .method_option-width {
+        width: 25%;
+      }
+      .method_option-number {
+        border-radius: 15px;
+        padding: 5px;
+        text-align: center;
+      }
+    }
+  }
+  .method_response {
+    margin-left: 5px;
+    width: 50%;
+  }
 }
