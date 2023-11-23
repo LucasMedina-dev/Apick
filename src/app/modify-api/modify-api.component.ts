@@ -144,16 +144,22 @@ export class ModifyApiComponent implements OnChanges, OnInit {
             text: "The API has been modified and paused.",
             footer: "The API does not have any active endpoint."
           })
-          this.modalService.dismissAll();
+          .then((result: any) => {
+            if (result.isConfirmed) {
+              this.modalService.dismissAll();
+              location.reload()
+            }
+          });
         } else {
           Swal.fire("The API has been modified.")
             .then((result: any) => {
               if (result.isConfirmed) {
                 this.modalService.dismissAll();
+                location.reload()
               }
             });
-
         }
+        
       },
     });
   }

@@ -97,21 +97,21 @@ export class ApimanagerService {
   }
 
   // ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS
-  getDocs(urlRequested: string, key:string): Observable<any> {
+  getDocs(urlRequested: string, key: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'authorization':key
-      })
+        authorization: key,
+      }),
     };
     return this.http.get<any>(urlRequested, httpOptions);
   }
-  postDoc(urlRequested: string, object: any, key:string) {
+  postDoc(urlRequested: string, object: any, key: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'authorization':key
-      })
+        authorization: key,
+      }),
     };
     return this.http.post<any>(urlRequested, object, httpOptions);
   }
@@ -130,40 +130,36 @@ export class ApimanagerService {
   }
 
   // CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS
-  getCustomizerById(idEndpoint : string, method : string): Observable<any> {
+  getCustomizerById(idEndpoint: string, method: string): Observable<any> {
     const url = `http://localhost:3000/api/custom?id=${idEndpoint}&method=${method}`;
     return this.http.get<any>(url);
   }
-  saveCustomizerData(customizerData : CustomizerStruct, newData : any){
+  saveCustomizerData(customizerData: CustomizerStruct, newData: any) {
     const url = `http://localhost:3000/api/custom/${customizerData._id}`;
     return this.http.put<any>(url, newData);
   }
 
-
   // APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY
-  getApiKey(apiId: string, username: any): Observable<any>{
+  getApiKey(apiId: string, username: any): Observable<any> {
     let url;
-    if(username){
-      url = `http://localhost:3000/api/keys/${apiId}?username=${username}`
-    }else{
-      url= `http://localhost:3000/api/keys/${apiId}`;
+    if (username) {
+      url = `http://localhost:3000/api/keys/${apiId}?username=${username}`;
+    } else {
+      url = `http://localhost:3000/api/keys/${apiId}`;
     }
     return this.http.get<any>(url);
   }
-  createApiKey(apiId: string): Observable<any>{
-    let url= `http://localhost:3000/api/keys`
-    return this.http.post<any>(url, {apiId: apiId});
+  createApiKey(apiId: string): Observable<any> {
+    let url = `http://localhost:3000/api/keys`;
+    return this.http.post<any>(url, { apiId: apiId });
   }
-  createUserKey(apiId: string, username: any): Observable<any>{
-    let url= `http://localhost:3000/api/keys/${apiId}`
-    
-    return this.http.post<any>(url, {username: username});
+  createUserKey(apiId: string, username: any): Observable<any> {
+    let url = `http://localhost:3000/api/keys/${apiId}`;
+
+    return this.http.post<any>(url, { username: username });
   }
-  updateEnabledApiKey(apiId: string, status:boolean): Observable<any>{
-    let url = `http://localhost:3000/api/keys/${apiId}`
-    return this.http.put<any>(url, {keyEnabled: status});
+  updateEnabledApiKey(apiId: string, status: boolean): Observable<any> {
+    let url = `http://localhost:3000/api/keys/${apiId}`;
+    return this.http.put<any>(url, { keyEnabled: status });
   }
-
-
-
 }
