@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ApimanagerService } from '../apimanager.service';
 import { ActivatedRoute } from '@angular/router';
 import { ApickStruct } from '../create-api/apickStruct.interface';
@@ -18,16 +18,17 @@ export class ApiviewComponent implements OnInit {
   id!: string;
   response!: any;
   objectToPost!: any;
-  defectImg="https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png";
-  apiKey!: any;
-  methods!: any;
+  defectImg =
+    'https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png';
+  enabledKey: boolean = false;
+  apiKey!: string;
 
   constructor(
     private apiManager: ApimanagerService,
     private route: ActivatedRoute,
     private searcher: NavbarSearcherService,
     private login: AuthService
-  ) { }
+  ) {}
 
   logInUser() {
     if (this.login.getUsername() != undefined) {
@@ -37,47 +38,57 @@ export class ApiviewComponent implements OnInit {
     }
   }
 
-  fillMethodEndpoint() {
-    if (this.logInUser()) {
-      for(let i=0; i<this.endpoints.length;i++){
-        console.log(this.endpoints[i]);
-        for(let j=0; i<this.endpoints[i].method;j++){
-          console.log(this.endpoints[i].method[j]);
-          this.methods.push(this.endpoints[i].method[j]);
-        }
-      }
-      console.log(this.methods);
-    } else {
-      alert('NO logueado');
-      console.log(this.endpoints[0].methods[0]);
-    }
-  }
-
   launchTest(endpointName: string, method: any) {
     let option = method.selectedOptions[0].innerText;
     let url = `http://localhost:3000/api/apick/${this.id}/${endpointName}`;
+    let autorization= this.apiKey || false;
+    this.enabledKey ? true : this.apiKey='';
     if (method.selectedIndex > 0) {
-      if (option == 'GET') {
-        this.apiManager.getDocs(url).subscribe({
-          next: (data) => (this.response = data),
-        });
-      } else if (this.logInUser()) {
-        this.apiManager.postDoc(url, JSON.parse(this.objectToPost)).subscribe({
-          next: (data) => (this.response = data),
-        });
-      } else {
-        Swal.fire("You are a guest!!, you need to login o create a account");
+      if(autorization || !this.enabledKey){
+        if (option == 'GET') {
+          this.apiManager.getDocs(url, this.apiKey).subscribe({
+            next: (data) => (this.response = data),
+          });
+        } else if (this.logInUser()) {
+          this.apiManager.postDoc(url, JSON.parse(this.objectToPost), this.apiKey).subscribe({
+            next: (data) => (this.response = data),
+          });
+        } else {
+          Swal.fire('You are a guest!!, you need to login o create a account');
+          Swal.fire({
+            icon: 'error',
+            title: 'Method not available!',
+            text: 'You need to login or create an account',
+          });
+        }
+      }else{
         Swal.fire({
-          icon: "error",
-          title: "Method not available!",
-          text: "You need to login or create an account"
+          icon: 'error',
+          title: 'Method not available!',
+          text: 'This API requires API KEY, be sure you are logged in or generated a key',
         });
       }
+      
     }
   }
   switchImg(needSwitch: boolean) {
     needSwitch ? (this.apick.imageUrl = this.defectImg) : false;
   }
+  generateApiKey(){
+    let username=this.login.getUsername() || false
+    
+    if(username && !this.apiKey && this.apick._id){
+      
+      this.apiManager.createUserKey(this.apick._id, username).subscribe({
+        next: (result)=>{
+          if(result.apiKey!=undefined){
+            this.apiKey= result.apiKey.key
+          }
+        }
+      })
+    }
+  }
+
   ngOnInit(): void {
     this.searcher.changeState(false);
     this.id = this.route.snapshot.paramMap.get('id') || '';
@@ -87,13 +98,18 @@ export class ApiviewComponent implements OnInit {
         this.endpoints = this.apick.endpoint.filter(
           (e: any) => e.active === true
         );
+        this.apiManager
+          .getApiKey(this.id, this.login.getUsername() || false)
+          .subscribe({
+            next: (result) => {
+              result.keyEnabled ? (this.enabledKey = true) : false;
+              if (result.apiKey != undefined) {
+                this.apiKey = result.apiKey.key;
+                
+              }
+            },
+          });
       },
-      complete:()=>{
-        //this.fillMethodEndpoint();
-      }
     });
-    
   }
-
-
 }

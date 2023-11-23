@@ -97,19 +97,21 @@ export class ApimanagerService {
   }
 
   // ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS -- ENDPOINTS
-  getDocs(urlRequested: string): Observable<any> {
+  getDocs(urlRequested: string, key:string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      }),
+        'authorization':key
+      })
     };
     return this.http.get<any>(urlRequested, httpOptions);
   }
-  postDoc(urlRequested: string, object: any) {
+  postDoc(urlRequested: string, object: any, key:string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      }),
+        'authorization':key
+      })
     };
     return this.http.post<any>(urlRequested, object, httpOptions);
   }

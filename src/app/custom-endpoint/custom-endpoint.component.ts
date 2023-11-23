@@ -3,6 +3,7 @@ import { CustomizerStruct } from '../structures/customizerStruct.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApimanagerService } from '../apimanager.service';
 import Swal from 'sweetalert2';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-custom-endpoint',
@@ -12,8 +13,9 @@ import Swal from 'sweetalert2';
 export class CustomEndpointComponent implements OnChanges {
   @Input() customizerData!: CustomizerStruct;
   @Input() endpointData: any;
+  @Input() apiId: any;
   documents !: any;
-  constructor(private apiManager: ApimanagerService) {}
+  constructor(private apiManager: ApimanagerService, private auth: AuthService) {}
   formCustomizer = new FormGroup({
     queryParameters: new FormControl(false, Validators.required),
     limitDocuments: new FormControl(0, Validators.required),
@@ -28,15 +30,40 @@ export class CustomEndpointComponent implements OnChanges {
         },
       });
   }
-  launchTest() {
-    let idEndpoint = this.customizerData.idEndpoint;
-    //let method = this.customizerData.method;
-    let url = `http://localhost:3000/api/endpoint/${idEndpoint}`;
-    this.apiManager.getDocs(url).subscribe({
+
+  petition(url: string, API_KEY: string){
+    return this.apiManager.getDocs(url, API_KEY).subscribe({
       next: (data)=> {
         this.documents=data;
       }
     })
+  }
+
+  launchTest() {
+    let idEndpoint = this.customizerData.idEndpoint;
+    let url = `http://localhost:3000/api/endpoint/${idEndpoint}`;
+    let username= this.auth.getUsername()
+    // Busco si existe la api key
+    let API_KEY:string;
+    this.apiManager.getApiKey(this.apiId, username).subscribe({
+      next: (result)=>{
+        if(result.apiKey){
+          API_KEY= result.apiKey.key
+          this.petition(url, API_KEY)
+        }else{
+          this.apiManager.createUserKey(this.apiId, username).subscribe({
+            next: (result)=>{
+              API_KEY= result.key
+              this.petition(url, API_KEY)
+            }
+          })
+        }
+      }
+    })
+    // Si no existe la creo
+    // Si existe la envio abajo
+
+    
   }
   ngOnChanges() {
     this.documents=Object;
