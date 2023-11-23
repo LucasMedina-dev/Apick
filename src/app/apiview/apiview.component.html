@@ -17,9 +17,13 @@
                 </select>
                 <button class="btn endpoint_launch btn-dark" (click)="launchTest(endpoint.endpoint, method)">Launch test!</button>
             </div>
+            <div class="endpoints_div mt-5" *ngIf="enabledKey || false">
+                <p>{{apiKey || "Generate your API KEY. Only for registered users"}}</p>
+                <button class="btn endpoint_launch btn-dark" (click)="generateApiKey()">Get api key</button>
+            </div>
             
-
         </div>
+        
     </div>
     <div class="main_json">
         <textarea class="json_body" [(ngModel)]="objectToPost" placeholder="Upload request body"></textarea>
