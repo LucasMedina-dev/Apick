@@ -9,6 +9,9 @@ import {
 } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import { CustomizerStruct } from '../structures/customizerStruct.interface';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-modify-api',
@@ -18,8 +21,13 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 export class ModifyApiComponent implements OnChanges, OnInit {
   @Input() dataApick!: ApickStruct;
   dataApickCopy!: ApickStruct;
+  dataCustom!: CustomizerStruct;
+  endpointCustom!: string;
   closeResult = '';
   faPenToSquare = faPenToSquare;
+  openedCustomizer:boolean=false;
+  keyEnabled!:boolean;
+
   formModifier = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -28,8 +36,9 @@ export class ModifyApiComponent implements OnChanges, OnInit {
   constructor(
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private apiManager: ApimanagerService
-  ) {}
+    private apiManager: ApimanagerService,
+    private authService: AuthService
+  ) { }
 
   open(content: any) {
     this.modalService
@@ -53,7 +62,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     }
   }
   formName = new FormGroup({
-    modifiedEndpoint: new FormControl('', Validators.required),
+    modifiedEndpoint: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z0-9]*')])),
   });
 
   buildPreviewApick(data: ApickStruct) {
@@ -85,36 +94,67 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     let endpointToModify = this.dataApick.endpoint.find(
       (e) => e.endpoint === endpoint
     );
-    if (endpointToModify && endpointToModify.methods.length!=0) {
+    if (endpointToModify && endpointToModify.methods.length != 0) {
       endpointToModify.active = !endpointToModify.active;
-    }else{
-      alert("Debe estar activado al menos un metodo")
+    } else {
+      Swal.fire("At least one method must be activated.");
     }
   }
   switchStatus(_id: any) {
-    let actives=this.dataApick.endpoint.find((e) => e.active === true);
-    if(actives || this.dataApick.active ){
+    let actives = this.dataApick.endpoint.find((e) => e.active === true);
+    if (actives || this.dataApick.active) {
       this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
         next: () => {
           this.dataApick.active = !this.dataApick.active;
+
+          if (this.dataApick.active) {
+            Swal.fire("The Api has been started.");
+          } else {
+            Swal.fire("The Api has been paused.");
+          }
           this.modalService.dismissAll();
         },
       });
-    }else{
-      alert("no tiene metodos activos")
+    } else {
+      Swal.fire("At least one endpoint must be activated.");
+      this.modalService.dismissAll();
     }
-    
+
   }
   deleteApick(titleToDelete: string) {
     this.apiManager.deleteEntireApick(titleToDelete).subscribe({
       next: () => {
-        location.reload();
+        Swal.fire("The API has been deleted.");
+        setTimeout(() => location.reload(), 1500);
+
       },
     });
   }
   updateApick(dataApick: ApickStruct) {
+    let active = dataApick.endpoint.find((e) => e.active === true);
+    if (!active) {
+      dataApick.active = false;
+    }
     this.apiManager.updateEntireApick(dataApick, this.dataApickCopy).subscribe({
-      next: () => location.reload(),
+      next: () => {
+        if (!active) {
+          Swal.fire({
+            icon: "warning",
+            title: "Warning",
+            text: "The API has been modified and paused.",
+            footer: "The API does not have any active endpoint."
+          })
+          this.modalService.dismissAll();
+        } else {
+          Swal.fire("The API has been modified.")
+            .then((result: any) => {
+              if (result.isConfirmed) {
+                this.modalService.dismissAll();
+              }
+            });
+
+        }
+      },
     });
   }
   updateApickData() {
@@ -127,21 +167,73 @@ export class ModifyApiComponent implements OnChanges, OnInit {
       (e) => e.endpoint == endpointName
     );
     const endpointNew = this.formName.value.modifiedEndpoint;
-    if (endpoint) {
-      if (!this.dataApick.endpoint.find((e) => e.endpoint === endpointNew)) {
-        endpoint.endpoint = endpointNew || '';
-        this.modalService.dismissAll();
-      } else {
-        alert('The name already exists');
+    if (this.formName.valid && endpointNew != undefined) {
+      if (endpoint) {
+        if (!this.dataApick.endpoint.find((e) => e.endpoint === endpointNew)) {
+          endpoint.endpoint = endpointNew || '';
+          this.modalService.dismissAll();
+          this.formName.reset();
+          Swal.fire("Name changed, you must hit the Confirm button.");
+        } else {
+          Swal.fire("The name already exists.");
+          this.formName.reset();
+        }
+      }
+    } else {
+      if (endpointNew?.length == 0) {
+        Swal.fire("The name cannot be empty.");
+      } else if (!this.formName.valid) {
+        Swal.fire("The endpoint name should only contain letters and numbers.");
+        this.formName.reset();
       }
     }
+  }
+
+  openCustomizer(title: string, endpoint: string, method: string) {
+    let endpointId: any;
+    this.apiManager.getEndpointId(title, endpoint).subscribe({
+      next: (res) => {
+        res ? endpointId = res._id : false;
+        if (endpointId) {
+          this.apiManager.getCustomizerById(endpointId, method).subscribe({
+            next: (data) => {
+              if (data) {
+                this.openedCustomizer = true;
+                this.dataCustom = data;
+                this.endpointCustom = endpoint;
+              } else {
+                alert('Error en bdd')
+              }
+            }
+          })
+        } else {
+          Swal.fire("Please confirm the changes first.");
+        }
+      }
+    })
+  }
+
+  switchApiKey(){
+    this.apiManager.updateEnabledApiKey(this.dataApick._id || '', !this.keyEnabled).subscribe({
+      next: (result)=> {
+        if(result.modified){
+          this.keyEnabled=!this.keyEnabled
+        }
+      }
+    })
   }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick);
   }
   ngOnInit(): void {
     this.apiManager.getApickById(this.dataApick._id || '').subscribe({
-      next: (data) => (this.dataApickCopy = data[0]),
+      next: (data) => {
+        this.dataApickCopy = data[0]
+        let username=this.authService.getUsername();
+        this.apiManager.getApiKey(this.dataApick._id || '', username || false).subscribe({
+          next: (response)=> this.keyEnabled=response.keyEnabled
+        })
+      }
     });
   }
 }
