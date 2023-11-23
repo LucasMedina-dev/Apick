@@ -24,7 +24,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
   endpointCustom!: string;
   closeResult = '';
   faPenToSquare = faPenToSquare;
-  openedCustomizer:boolean=false;
+  openedCustomizer: boolean = false;
 
   formModifier = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -59,7 +59,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     }
   }
   formName = new FormGroup({
-    modifiedEndpoint: new FormControl('', Validators.required),
+    modifiedEndpoint: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z0-9]*')])),
   });
 
   buildPreviewApick(data: ApickStruct) {
@@ -141,20 +141,15 @@ export class ModifyApiComponent implements OnChanges, OnInit {
             text: "The API has been modified and paused.",
             footer: "The API does not have any active endpoint."
           })
-          .then((result: any) => {
-            if (result.isConfirmed) {
-              location.reload(); 
-            }
-          });
-          
+          this.modalService.dismissAll();
         } else {
           Swal.fire("The API has been modified.")
-          .then((result:any) => {
-            if (result.isConfirmed) {
-              location.reload(); 
-            }
-          });
-          
+            .then((result: any) => {
+              if (result.isConfirmed) {
+                this.modalService.dismissAll();
+              }
+            });
+
         }
       },
     });
@@ -169,40 +164,53 @@ export class ModifyApiComponent implements OnChanges, OnInit {
       (e) => e.endpoint == endpointName
     );
     const endpointNew = this.formName.value.modifiedEndpoint;
-    if (endpoint) {
-      if (!this.dataApick.endpoint.find((e) => e.endpoint === endpointNew)) {
-        endpoint.endpoint = endpointNew || '';
-        this.modalService.dismissAll();
-      } else {
-        Swal.fire("The name already exists.");
+    if (this.formName.valid && endpointNew != undefined) {
+      if (endpoint) {
+        if (!this.dataApick.endpoint.find((e) => e.endpoint === endpointNew)) {
+          endpoint.endpoint = endpointNew || '';
+          this.modalService.dismissAll();
+          this.formName.reset();
+          Swal.fire("Name changed, you must hit the Confirm button.");
+        } else {
+          Swal.fire("The name already exists.");
+          this.formName.reset();
+        }
+      }
+    } else {
+      if (endpointNew?.length == 0) {
+        Swal.fire("The name cannot be empty.");
+      } else if (!this.formName.valid) {
+        Swal.fire("The endpoint name should only contain letters and numbers.");
+        this.formName.reset();
       }
     }
   }
-  openCustomizer(title: string,endpoint : string, method: string){
-    let endpointId:any;
+
+  openCustomizer(title: string, endpoint: string, method: string) {
+    let endpointId: any;
     this.apiManager.getEndpointId(title, endpoint).subscribe({
-      next: (res)=>{
-        res ? endpointId=res._id : false;
-        if(endpointId){
+      next: (res) => {
+        res ? endpointId = res._id : false;
+        if (endpointId) {
           this.apiManager.getCustomizerById(endpointId, method).subscribe({
-            next: (data)=> {
-              if(data){
-                this.openedCustomizer=true;
-                this.dataCustom=data;
-                this.endpointCustom=endpoint;
-              }else{
+            next: (data) => {
+              if (data) {
+                this.openedCustomizer = true;
+                this.dataCustom = data;
+                this.endpointCustom = endpoint;
+              } else {
                 alert('Error en bdd')
               }
             }
           })
-        }else{
-          alert('guarde los datos primero')
+        } else {
+          Swal.fire("Please confirm the changes first.");
         }
-    
+
       }
     })
-    
-    
+
+
   }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick);
