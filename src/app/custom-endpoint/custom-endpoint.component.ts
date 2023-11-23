@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CustomizerStruct } from '../structures/customizerStruct.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApimanagerService } from '../apimanager.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-custom-endpoint',
@@ -23,7 +24,7 @@ export class CustomEndpointComponent implements OnChanges {
       .saveCustomizerData(this.customizerData, this.formCustomizer.value)
       .subscribe({
         next: (response) => {
-          console.log(response);
+          Swal.fire("Customized method saved.")
         },
       });
   }

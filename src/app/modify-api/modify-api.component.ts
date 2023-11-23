@@ -141,12 +141,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
             text: "The API has been modified and paused.",
             footer: "The API does not have any active endpoint."
           })
-            .then((result: any) => {
-              if (result.isConfirmed) {
-                location.reload();
-              }
-            });
-
+          this.modalService.dismissAll();
         } else {
           Swal.fire("The API has been modified.")
             .then((result: any) => {
@@ -178,13 +173,15 @@ export class ModifyApiComponent implements OnChanges, OnInit {
           Swal.fire("Name changed, you must hit the Confirm button.");
         } else {
           Swal.fire("The name already exists.");
+          this.formName.reset();
         }
       }
     } else {
       if (endpointNew?.length == 0) {
         Swal.fire("The name cannot be empty.");
-      } else if(!this.formName.valid){
-          Swal.fire("The endpoint name should only contain letters and numbers.");
+      } else if (!this.formName.valid) {
+        Swal.fire("The endpoint name should only contain letters and numbers.");
+        this.formName.reset();
       }
     }
   }
