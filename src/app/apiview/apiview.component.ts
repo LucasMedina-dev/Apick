@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApickStruct } from '../create-api/apickStruct.interface';
 import { NavbarSearcherService } from '../navbar-searcher.service';
 import { AuthService } from '../auth.service';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-apiview',
@@ -18,14 +20,39 @@ export class ApiviewComponent implements OnInit {
   objectToPost!: any;
   defectImg="https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png";
   apiKey!: any;
+  methods!: any;
 
   constructor(
     private apiManager: ApimanagerService,
     private route: ActivatedRoute,
     private searcher: NavbarSearcherService,
     private login: AuthService
-  ) {}
-  
+  ) { }
+
+  logInUser() {
+    if (this.login.getUsername() != undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  fillMethodEndpoint() {
+    if (this.logInUser()) {
+      for(let i=0; i<this.endpoints.length;i++){
+        console.log(this.endpoints[i]);
+        for(let j=0; i<this.endpoints[i].method;j++){
+          console.log(this.endpoints[i].method[j]);
+          this.methods.push(this.endpoints[i].method[j]);
+        }
+      }
+      console.log(this.methods);
+    } else {
+      alert('NO logueado');
+      console.log(this.endpoints[0].methods[0]);
+    }
+  }
+
   launchTest(endpointName: string, method: any) {
     let option = method.selectedOptions[0].innerText;
     let url = `http://localhost:3000/api/apick/${this.id}/${endpointName}`;
@@ -34,9 +61,16 @@ export class ApiviewComponent implements OnInit {
         this.apiManager.getDocs(url).subscribe({
           next: (data) => (this.response = data),
         });
-      } else {
+      } else if (this.logInUser()) {
         this.apiManager.postDoc(url, JSON.parse(this.objectToPost)).subscribe({
           next: (data) => (this.response = data),
+        });
+      } else {
+        Swal.fire("You are a guest!!, you need to login o create a account");
+        Swal.fire({
+          icon: "error",
+          title: "Method not available!",
+          text: "You need to login or create an account"
         });
       }
     }
@@ -53,13 +87,13 @@ export class ApiviewComponent implements OnInit {
         this.endpoints = this.apick.endpoint.filter(
           (e: any) => e.active === true
         );
-        this.apiManager.getApiKey(this.id, this.login.getUsername() || false).subscribe({
-          next: (result)=> {
-            this.apiKey= result
-          }
-        })
       },
+      complete:()=>{
+        //this.fillMethodEndpoint();
+      }
     });
     
   }
+
+
 }
