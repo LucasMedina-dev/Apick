@@ -3,6 +3,7 @@ import { ApimanagerService } from '../apimanager.service';
 import { ActivatedRoute } from '@angular/router';
 import { ApickStruct } from '../create-api/apickStruct.interface';
 import { NavbarSearcherService } from '../navbar-searcher.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-apiview',
@@ -16,11 +17,13 @@ export class ApiviewComponent implements OnInit {
   response!: any;
   objectToPost!: any;
   defectImg="https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png";
+  apiKey!: any;
 
   constructor(
     private apiManager: ApimanagerService,
     private route: ActivatedRoute,
-    private searcher: NavbarSearcherService
+    private searcher: NavbarSearcherService,
+    private login: AuthService
   ) {}
   
   launchTest(endpointName: string, method: any) {
@@ -50,7 +53,13 @@ export class ApiviewComponent implements OnInit {
         this.endpoints = this.apick.endpoint.filter(
           (e: any) => e.active === true
         );
+        this.apiManager.getApiKey(this.id, this.login.getUsername() || false).subscribe({
+          next: (result)=> {
+            this.apiKey= result
+          }
+        })
       },
     });
+    
   }
 }

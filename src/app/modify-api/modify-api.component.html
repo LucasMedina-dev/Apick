@@ -26,6 +26,8 @@
         <button class="btn btn-primary btn-sm" (click)="open(pause)" *ngIf="dataApick.active">Pause Api</button>
         <button class="btn btn-primary btn-sm" (click)="open(start)" *ngIf="!dataApick.active">Start Api</button>
         <button class="btn btn-danger btn-sm" (click)="open(delete)">Delete Api</button>
+        <button class="btn btn-outline-warning btn-sm" (click)="switchApiKey()">Api Key {{keyEnabled ? "activated" : "inactive"}}</button>
+
       </div>
     </form>
   </div>

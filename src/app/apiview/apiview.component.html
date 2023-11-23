@@ -18,8 +18,12 @@
                 <button class="btn endpoint_launch btn-dark" (click)="launchTest(endpoint.endpoint, method)">Launch test!</button>
             </div>
             
-
+            <div class="endpoints_div mt-5" *ngIf="apiKey.keyEnabled">
+                <p>{{apiKey.keyEnabled ? apiKey.apiKey.key : "Only logued users! Please log in"}}</p>
+                <button class="btn endpoint_launch btn-dark" >Get api key</button>
+            </div>
         </div>
+        
     </div>
     <div class="main_json">
         <textarea class="json_body" [(ngModel)]="objectToPost" placeholder="Upload request body"></textarea>

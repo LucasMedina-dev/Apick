@@ -136,4 +136,32 @@ export class ApimanagerService {
     const url = `http://localhost:3000/api/custom/${customizerData._id}`;
     return this.http.put<any>(url, newData);
   }
+
+
+  // APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY -- APIKEY
+  getApiKey(apiId: string, username: any): Observable<any>{
+    let url;
+    if(username){
+      url = `http://localhost:3000/api/keys/${apiId}?username=${username}`
+    }else{
+      url= `http://localhost:3000/api/keys/${apiId}`;
+    }
+    return this.http.get<any>(url);
+  }
+  createApiKey(apiId: string): Observable<any>{
+    let url= `http://localhost:3000/api/keys`
+    return this.http.post<any>(url, {apiId: apiId});
+  }
+  createUserKey(apiId: string, username: any): Observable<any>{
+    let url= `http://localhost:3000/api/keys/${apiId}`
+    
+    return this.http.post<any>(url, {username: username});
+  }
+  updateEnabledApiKey(apiId: string, status:boolean): Observable<any>{
+    let url = `http://localhost:3000/api/keys/${apiId}`
+    return this.http.put<any>(url, {keyEnabled: status});
+  }
+
+
+
 }

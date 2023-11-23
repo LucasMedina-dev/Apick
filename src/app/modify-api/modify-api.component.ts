@@ -11,6 +11,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { CustomizerStruct } from '../structures/customizerStruct.interface';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-modify-api',
@@ -25,6 +26,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
   closeResult = '';
   faPenToSquare = faPenToSquare;
   openedCustomizer:boolean=false;
+  keyEnabled!:boolean;
 
   formModifier = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -34,7 +36,8 @@ export class ModifyApiComponent implements OnChanges, OnInit {
   constructor(
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private apiManager: ApimanagerService
+    private apiManager: ApimanagerService,
+    private authService: AuthService
   ) { }
 
   open(content: any) {
@@ -198,18 +201,31 @@ export class ModifyApiComponent implements OnChanges, OnInit {
         }else{
           alert('guarde los datos primero')
         }
-    
       }
     })
-    
-    
+  }
+
+  switchApiKey(){
+    this.apiManager.updateEnabledApiKey(this.dataApick._id || '', !this.keyEnabled).subscribe({
+      next: (result)=> {
+        if(result.modified){
+          this.keyEnabled=!this.keyEnabled
+        }
+      }
+    })
   }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick);
   }
   ngOnInit(): void {
     this.apiManager.getApickById(this.dataApick._id || '').subscribe({
-      next: (data) => this.dataApickCopy = data[0]
+      next: (data) => {
+        this.dataApickCopy = data[0]
+        let username=this.authService.getUsername();
+        this.apiManager.getApiKey(this.dataApick._id || '', username || false).subscribe({
+          next: (response)=> this.keyEnabled=response.keyEnabled
+        })
+      }
     });
   }
 }
