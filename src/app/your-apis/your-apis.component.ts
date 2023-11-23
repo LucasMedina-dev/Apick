@@ -3,6 +3,7 @@ import { ApimanagerService } from '../apimanager.service';
 import { AuthService } from '../auth.service';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { ApickStruct } from '../create-api/apickStruct.interface';
+import { NavbarSearcherService } from '../navbar-searcher.service';
 
 @Component({
   selector: 'app-your-apis',
@@ -17,7 +18,8 @@ export class YourApisComponent implements OnInit {
   dataToEdit!:ApickStruct;
   constructor(
     private apiManager: ApimanagerService,
-    private authService: AuthService
+    private authService: AuthService,
+    private searcher : NavbarSearcherService
   ){}
   searchMyApicks() {
     this.apiManager
@@ -36,6 +38,7 @@ export class YourApisComponent implements OnInit {
     this.dataToEdit=data;
   }
   ngOnInit(): void {
+    this.searcher.changeState(false);
     this.searchMyApicks();
   }
 
