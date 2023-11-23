@@ -109,7 +109,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
     }
   }
   switchStatus(_id: any) {
-    let actives = this.dataApick.endpoint.find((e) => e.active === true);
+    let actives = this.dataApickCopy.endpoint.find((e) => e.active === true);
     if (actives || this.dataApick.active) {
       this.apiManager.updateApickStatus(_id, !this.dataApick.active).subscribe({
         next: () => {
@@ -124,7 +124,7 @@ export class ModifyApiComponent implements OnChanges, OnInit {
         },
       });
     } else {
-      Swal.fire('At least one endpoint must be activated.');
+      Swal.fire('At least one endpoint must be activated. <br>(Remember confirm changes).');
       this.modalService.dismissAll();
     }
   }
