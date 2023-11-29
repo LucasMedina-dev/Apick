@@ -237,11 +237,12 @@ export class ModifyApiComponent implements OnChanges, OnInit {
   }
   ngOnChanges(): void {
     this.buildPreviewApick(this.dataApick);
+    this.dataApickCopy = {...this.dataApick}
   }
   ngOnInit(): void {
     this.apiManager.getApickById(this.dataApick._id || '').subscribe({
       next: (data) => {
-        this.dataApickCopy = data[0];
+        this.dataApickCopy = {...data[0]};
         let username = this.authService.getUsername();
         this.apiManager
           .getApiKey(this.dataApick._id || '', username || false)

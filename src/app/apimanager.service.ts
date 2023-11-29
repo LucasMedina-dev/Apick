@@ -101,7 +101,7 @@ export class ApimanagerService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: key,
+        Authorization: key,
       }),
     };
     return this.http.get<any>(urlRequested, httpOptions);
@@ -110,7 +110,7 @@ export class ApimanagerService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: key,
+        Authorization: key,
       }),
     };
     return this.http.post<any>(urlRequested, object, httpOptions);
