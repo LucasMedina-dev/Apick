@@ -1,4 +1,4 @@
-<form class="searcher" *ngIf="stateService.showSearcher">
+<form class="searcher">
     <input class="searcher_input" type="text" id="search" name="search" placeholder="Search by name" [(ngModel)]="query" (input)="goSearch(query)">
     <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
 </form>

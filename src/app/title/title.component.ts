@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavbarSearcherService } from '../navbar-searcher.service';
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
@@ -8,9 +7,5 @@ import { NavbarSearcherService } from '../navbar-searcher.service';
 export class TitleComponent {
   title:string=""
 
-  constructor(private searchBar:NavbarSearcherService){}
-
-  showSearch(){
-    this.searchBar.changeState(true);
-  }
+  constructor(){}
 }

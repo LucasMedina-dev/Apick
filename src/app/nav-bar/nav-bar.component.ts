@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NavbarSearcherService } from '../navbar-searcher.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -76,9 +75,7 @@ export class NavBarComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private authService: AuthService,
-    private navBarValue: NavbarSearcherService
-  ) {}
+    private authService: AuthService) {}
 
   open(content: any) {
     this.formUser.reset();
@@ -164,7 +161,6 @@ export class NavBarComponent implements OnInit {
     setTimeout(() => {
       this.authService.closeSesion();
       this.logueado = this.authService.logueado;
-      this.renderSearch(true);
       localStorage.removeItem('username');
       this.modalService.dismissAll();
       location.reload();
@@ -175,9 +171,7 @@ export class NavBarComponent implements OnInit {
     this.isActive = false;
   }
 
-  renderSearch(value: boolean) {
-    this.navBarValue.changeState(value);
-  }
+
   ngOnInit(): void {
     let username = localStorage.getItem('username');
     if (username != undefined) {
