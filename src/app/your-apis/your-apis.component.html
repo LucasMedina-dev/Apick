@@ -7,17 +7,16 @@
     <div class="apis_list">
       <div *ngFor="let api of data">
         <div class="myapick">
-          <img class="myapick_image" src="{{ api.imageUrl }}" alt="" />
+          <img class="myapick_image" src="{{api.imageUrl}}" alt="{{api._id}}" (error)="api.imageUrl='https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png'"/>
           <h4 class="myapick_title">{{ api.title }}</h4>
           <button class="btn myapick_edit" id="{{ api._id }}" (click)="openApiEditor(api)">
             <fa-icon [icon]="faChevronRight"></fa-icon>
           </button>
         </div>
-        
       </div>
       
     </div>
   </div>
   <app-create-api class="main_division" *ngIf="creatorView"></app-create-api>
-  <app-modify-api class="main_division" *ngIf="apiView" [data]='dataToEdit'></app-modify-api>
+  <app-modify-api class="main_division" *ngIf="apiView" [dataApick]='dataToEdit' ></app-modify-api>
 </main>

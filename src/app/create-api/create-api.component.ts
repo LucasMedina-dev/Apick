@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { ApickStruct } from './apickStruct.interface';
 import { EndpointStruct } from './endpointStruct.interface';
 import { ApimanagerService } from '../apimanager.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-api',
@@ -11,25 +12,39 @@ import { ApimanagerService } from '../apimanager.service';
   styleUrls: ['./create-api.component.scss'],
 })
 export class CreateApiComponent {
-  constructor(
-    private authService: AuthService,
-    private apiManager: ApimanagerService
-  ) { }
+  public docsSave: Array<EndpointStruct> = [];
+  public endpointFail!: Boolean;
+
   formCreator = new FormGroup({
-    title: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    title: new FormControl(
+      '',
+      Validators.compose([Validators.required, Validators.maxLength(30)])
+    ),
+    description: new FormControl(
+      '',
+      Validators.compose([Validators.required, Validators.maxLength(30)])
+    ),
     image: new FormControl(''),
     username: new FormControl(
       this.authService.getUsername(),
       Validators.required
     ),
   });
+
   formJson = new FormGroup({
-    endpoint: new FormControl('', Validators.required),
+    endpoint: new FormControl(
+      '',
+      Validators.compose([
+        Validators.required,
+        Validators.maxLength(15),
+        Validators.pattern('[a-zA-Z0-9]*'),
+      ])
+    ),
     docs: new FormControl('', Validators.required),
   });
+
   public apickSave: ApickStruct = {
-    _id:'',
+    _id: '',
     username: '',
     title: '',
     imageUrl:
@@ -47,32 +62,36 @@ export class CreateApiComponent {
     docs: [],
     methods: [],
   };
-  public docsSave: Array<EndpointStruct> = [];
-  public endpointFail!: Boolean;
-
+  constructor(
+    private authService: AuthService,
+    private apiManager: ApimanagerService
+  ) {}
 
   saveJsonData(text: any) {
-    if (
-      this.jsonValid(text) &&
-      !this.validateEndpointName() &&
-      this.formJson.value.endpoint &&
-      this.formJson.valid
-    ) {
-      this.buildEndpoint();
-      this.pushEndpoint();
-      this.docsSave.push({ ...this.endpointSave });
-    } else if (!this.formJson.valid) {
-      this.endpointFail = true
-      alert('El nombre para su endpoint no permite espacios ni simbolos')
+    let endpoint = this.formJson.value.endpoint;
+    let flag = this.apickSave.endpoint.find((e) => e.endpoint === endpoint);
+    if (!flag) {
+      if (this.jsonValid(text) && this.formJson.valid) {
+        this.buildEndpoint();
+        this.pushEndpoint();
+        this.docsSave.push({ ...this.endpointSave });
+      } else if (!this.formJson.valid) {
+        this.endpointFail = true;
+        Swal.fire(
+          'The name for your endpoint does not allow spaces or symbols.'
+        );
+      } else {
+        Swal.fire('The JSON document is not valid.');
+      }
     } else {
-      alert("El documento JSON no es valido")
+      Swal.fire('The endpoint name already exists.');
     }
   }
 
   buildApick() {
-    if(this.formCreator.valid){
+    if (this.formCreator.valid) {
       let defaultImage =
-      'https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png';
+        'https://icons.veryicon.com/png/o/internet--web/internet-simple-icon/api-management.png';
       this.apickSave.username = this.authService.getUsername();
       this.apickSave.title = this.formCreator.value.title || '';
       this.apickSave.description = this.formCreator.value.description || '';
@@ -80,8 +99,6 @@ export class CreateApiComponent {
         (this.formCreator.value.image != ''
           ? this.formCreator.value.image
           : defaultImage) || '';
-    }else{
-      console.log(this.formCreator.value)
     }
   }
   buildEndpoint() {
@@ -107,34 +124,74 @@ export class CreateApiComponent {
       return false;
     }
   }
-  validateEndpointName() {
-    let name = this.formJson.value.endpoint;
-    if (this.apickSave.endpoint.find((e) => e.endpoint === name)) {
-      this.endpointFail = true;
-      return true;
-    } else if (name === '') {
-      this.endpointFail = false;
-      return false;
-    } else {
-      this.endpointFail = false;
-      return false;
-    }
-  }
   uploadApick() {
     this.buildApick();
-    this.apiManager.registerApick(this.apickSave).subscribe({
-      next: (dataApi) => {
-        console.log(dataApi)
-        for (let data of this.docsSave) {
-          this.apiManager.registerEndpoint(data).subscribe({
-            next: (res) => console.log(res)
-          })
-        }
+    let apickToSave = this.apickSave;
+    for (let endpoint of apickToSave.endpoint) {
+      if (endpoint.methods.length === 0) {
+        endpoint.active = false;
       }
-    })
+    }
+    let actives = apickToSave.endpoint.find(
+      (element) => element.active === true
+    );
+    if (!actives) {
+      apickToSave.active = false;
+    }
+    delete apickToSave._id;
+    this.apiManager.registerApick(this.apickSave).subscribe({
+      next: (result) => {
+        console.log(result.message)
+        if (result.message) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: (result.message.title? 'The name for your api already exists.' : 'Fill the description.' ),
+            showConfirmButton: false,
+          });
+        } else {
+          let apiId = result._id;
+          console.log(apiId)
+          this.apiManager.createApiKey(apiId).subscribe({
+            next: (response) => {
+                console.log(response)
+            },
+          });
+          for (let endpoint of this.docsSave) {
+            if (endpoint.methods.length === 0) {
+              endpoint.active = false;
+            }
+            this.apiManager.registerEndpoint(endpoint).subscribe({
+              next: () => {                  
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your api has been created',
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                 setTimeout(() => location.reload(), 1500);
+              },
+              error(err) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Your api could not be created.',
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              },
+            });
+          }
+        }
+      },
+    });
   }
+
   switchMethod(method: string, endpoint: string) {
-    const whereIs = this.apickSave.endpoint.find(item => item.endpoint === endpoint);
+    const whereIs = this.apickSave.endpoint.find(
+      (item) => item.endpoint === endpoint
+    );
     if (whereIs) {
       const index = whereIs.methods.indexOf(method);
       if (index !== -1) {
@@ -142,8 +199,6 @@ export class CreateApiComponent {
       } else if (!whereIs.methods.includes(method)) {
         whereIs.methods.push(method);
       }
-
     }
-    //console.log(whereIs) Se logra el objetivo pero no funciona el cambio de color en el button ya que no se vuelve a leer los datos
   }
 }

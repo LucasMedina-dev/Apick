@@ -1,7 +1,8 @@
 <div class="modify_main">
-  <h4>APICK DATA</h4>
+  
   <div class="modify_data">
-    <form class="creator_data" [formGroup]="formModifier">
+    <h4>APICK DATA</h4>
+    <form class="creator_data" [formGroup]="formModifier" (change)="updateApickData()">
       <input
         class="creator_input form-control"
         type="text"
@@ -22,24 +23,22 @@
       />
       <div class="">
         <button class="btn btn-success btn-sm" (click)="open(confirm)">Confirm</button>
-        <button class="btn btn-primary btn-sm" (click)="open(pause)" *ngIf="data.active">Pause Api</button>
-        <button class="btn btn-primary btn-sm" (click)="open(start)" *ngIf="!data.active">Start Api</button>
+        <button class="btn btn-primary btn-sm" (click)="open(pause)" *ngIf="dataApick.active">Pause Api</button>
+        <button class="btn btn-primary btn-sm" (click)="open(start)" *ngIf="!dataApick.active">Start Api</button>
         <button class="btn btn-danger btn-sm" (click)="open(delete)">Delete Api</button>
+        <button class="btn btn-outline-warning btn-sm" (click)="switchApiKey()">Api Key {{keyEnabled ? "activated" : "inactive"}}</button>
+
       </div>
     </form>
   </div>
 
-  <div class="modify_methods">
+  <app-custom-endpoint class="modify_methods" *ngIf="openedCustomizer" [customizerData]='dataCustom' [endpointData]="endpointCustom" [apiId]="dataApick._id">
     
-    <div class="method_data">Aca ira el metodo para editar</div>
-    <div class="method_response">
-      Y este sera el espacio donde se mostrara la respuesta del metodo
-    </div>
-  </div>
+  </app-custom-endpoint>
 </div>
 <div class="modify_endpoint">
   <h4>ENDPOINTS</h4>
-  <div *ngFor="let endpoint of data.endpoint">
+  <div *ngFor="let endpoint of dataApick.endpoint">
     <div class="modify_title">
       <button
         class="modify_button btn"
@@ -48,10 +47,11 @@
       >
         Active
       </button>
-      <span class="modify_title-endpoint">{{ endpoint.endpoint }}</span>
+      <span class="modify_title-endpoint" >{{ endpoint.endpoint }}</span>
+      <button class="btn" (click)="open(nameEdit)"><fa-icon [icon]="faPenToSquare" class="text-dark"></fa-icon></button>
     </div>
     <div class="modify_method" *ngFor="let method of ['GET', 'POST']">
-      <button>/{{ endpoint.endpoint }}</button>
+      <button (click)="openCustomizer(dataApick.title ,endpoint.endpoint, method)">/{{ endpoint.endpoint }}</button>
       <button
         class="modify_button btn"
         [class.button_inactive]="!endpoint.methods.includes(method)"
@@ -60,6 +60,32 @@
         {{ method }}
       </button>
     </div>
+    <ng-template #nameEdit let-nameEditModal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit endpoint name</h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="nameEditModal.dismiss('Cross click')"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <form [formGroup]="formName"  class="d-flex flex-column mr-20 ml-20">
+              <h5>Old name</h5>
+              <input type="text" value='{{endpoint.endpoint}}' disabled>
+              <h5 class="pt-10">New Name</h5>
+              <input type="text" formControlName="modifiedEndpoint">
+            </form>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="editEndpointName(endpoint.endpoint)">Edit name</button>
+      </div>
+    </ng-template>
   </div>
 </div>
 
@@ -81,7 +107,7 @@
     </form>
   </div>
   <div class="modal-footer">
-		<button type="button" class="btn btn-outline-danger">Delete Api</button>
+		<button type="button" class="btn btn-outline-danger" (click)="deleteApick(dataApick.title)">Delete Api</button>
 	</div>
 </ng-template>
 
@@ -103,7 +129,7 @@
     </form>
   </div>
   <div class="modal-footer">
-		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(data._id)">Pause Api</button>
+		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(dataApick._id)">Pause Api</button>
 	</div>
 </ng-template>
 
@@ -126,7 +152,7 @@
     </form>
   </div>
   <div class="modal-footer">
-		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(data._id)">Start Api</button>
+		<button type="button" class="btn btn-outline-primary" (click)="switchStatus(dataApick._id)">Start Api</button>
 	</div>
 </ng-template>
 
@@ -149,6 +175,7 @@
     </form>
   </div>
   <div class="modal-footer">
-		<button type="button" class="btn btn-outline-success">Confirm Api</button>
+		<button type="button" class="btn btn-outline-success" (click)="updateApick(dataApick)">Confirm Api</button>
 	</div>
 </ng-template>
+

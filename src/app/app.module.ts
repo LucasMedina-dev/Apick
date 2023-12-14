@@ -16,6 +16,7 @@ import { ApiviewComponent } from './apiview/apiview.component';
 import { CreateApiComponent } from './create-api/create-api.component';
 import { ResponseComponent } from './response/response.component';
 import { ModifyApiComponent } from './modify-api/modify-api.component';
+import { CustomEndpointComponent } from './custom-endpoint/custom-endpoint.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ModifyApiComponent } from './modify-api/modify-api.component';
     ApiviewComponent,
     CreateApiComponent,
     ResponseComponent,
-    ModifyApiComponent
+    ModifyApiComponent,
+    CustomEndpointComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,7 @@ import { ModifyApiComponent } from './modify-api/modify-api.component';
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule 
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

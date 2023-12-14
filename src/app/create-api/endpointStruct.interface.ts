@@ -1,4 +1,5 @@
 export interface EndpointStruct{
+    _id?:string;
     username:string;
     active:Boolean;
     title:string;

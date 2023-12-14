@@ -1,8 +1,8 @@
 <div class="main_form">
   <h4 class="creator_title">APICK DATA</h4>
   <form class="creator_data" [formGroup]="formCreator">
-    <input class="creator_input form-control" type="text" placeholder="Title for your apick!" formControlName="title" />
-    <textarea class="creator_input form-control" type="text" placeholder="Description for your apick!"
+    <input class="creator_input form-control" type="text" maxlength="30" placeholder="Title for your apick!" formControlName="title" />
+    <textarea class="creator_input form-control" type="text" maxlength="30" placeholder="Description for your apick!"
       formControlName="description"></textarea>
     <input class="creator_input form-control" type="text" placeholder="Link to a image icon" formControlName="image" />
   </form>
@@ -21,10 +21,10 @@
 <div class="main_json">
   <h4 class="creator_title text-center">JSON DATA</h4>
   <form [formGroup]="formJson" class="creator_json">
-    <input pattern="[A-Za-z0-9]+" class="creator_input form-control" type="text" formControlName="endpoint" (input)="validateEndpointName()"
-      [class.button_inactive]="endpointFail" placeholder="Endpoint name" />
+    <input class="creator_input form-control" type="text" formControlName="endpoint"
+      [class.button_inactive]="endpointFail" maxlength="15" placeholder="Endpoint name" (change)="endpointFail=false"/>
     <textarea formControlName="docs" placeholder="Paste here your JSON and choise a endpoint name"></textarea>
-    <button [disabled]="!formCreator.valid" class="creator_button btn" type="button" (click)="saveJsonData(formJson.value.docs)">
+    <button [disabled]="!formJson.valid" class="creator_button btn" type="button" (click)="saveJsonData(formJson.value.docs)" >
       Confirm data
     </button>
   </form>

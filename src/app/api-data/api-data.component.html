@@ -1,6 +1,6 @@
-<img class="apick_image" src={{apickData.imageUrl}} alt=" apic" >
+<img class="apick_image" src={{apickData.imageUrl}} alt="{{apickData._id}}" (error)="switchImg(true)">
 <div class="apick_text">
     <h2 class="apick_title">{{apickData.title}}</h2>
     <p class="apick_description">{{apickData.description}}</p>
 </div>
-<button class="btn apick_button"><a routerLink={{apickData.url}}><fa-icon [icon]="faChevronRight" class="text-dark"></fa-icon></a></button>
+<button class="btn apick_button" routerLink={{apickData.url}}><fa-icon [icon]="faChevronRight" class="text-dark"></fa-icon></button>
