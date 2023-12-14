@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ApimanagerService } from '../apimanager.service';
 import { ActivatedRoute } from '@angular/router';
 import { ApickStruct } from '../create-api/apickStruct.interface';
-import { NavbarSearcherService } from '../navbar-searcher.service';
 import { AuthService } from '../auth.service';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
@@ -26,7 +25,6 @@ export class ApiviewComponent implements OnInit {
   constructor(
     private apiManager: ApimanagerService,
     private route: ActivatedRoute,
-    private searcher: NavbarSearcherService,
     private login: AuthService
   ) {}
 
@@ -40,7 +38,7 @@ export class ApiviewComponent implements OnInit {
 
   launchTest(endpointName: string, method: any) {
     let option = method.selectedOptions[0].innerText;
-    let url = `http://localhost:3000/api/apick/${this.id}/${endpointName}`;
+    let url = `https://apickdb.fly.dev/api/apick/${this.id}/${endpointName}`;
     let autorization= this.apiKey || false;
     this.enabledKey ? true : this.apiKey='';
     if (method.selectedIndex > 0) {
@@ -90,7 +88,6 @@ export class ApiviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searcher.changeState(false);
     this.id = this.route.snapshot.paramMap.get('id') || '';
     this.apiManager.getApickById(this.id).subscribe({
       next: (data) => {

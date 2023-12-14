@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 
 export class AuthService {
   public logueado=false;
+  private URL= "https://apickdb.fly.dev"
   username!: string;
   constructor(private http: HttpClient){ }
 
@@ -16,7 +17,7 @@ export class AuthService {
   }
   tryLogin(user:String, pass:String):Observable<any>{
     if(!this.alreadyLocalUser()){
-      const url = 'http://localhost:3000/api/login'; // Reemplaza por la URL de tu servidor
+      const url = `${this.URL}/api/login`; // Reemplaza por la URL de tu servidor
       const data = {username: user,password: pass};
       const httpOptions = {
         headers: new HttpHeaders({
@@ -29,7 +30,7 @@ export class AuthService {
     }
   }
   tryRegister(data:any){
-    const url = 'http://localhost:3000/api/register';
+    const url = `${this.URL}/api/register`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

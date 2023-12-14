@@ -10,7 +10,7 @@ import { CustomizerStruct } from './structures/customizerStruct.interface';
 export class ApimanagerService {
   public data: any;
   private filtered: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
+  private URL="https://apickdb.fly.dev";
   constructor(private http: HttpClient) {}
 
   get getFiltered(): Observable<any> {
@@ -24,7 +24,7 @@ export class ApimanagerService {
   // APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS -- APICKS
   getMyApicks(username: string): Observable<any> {
     if (username != '') {
-      const url = `http://localhost:3000/api/apick?username=${username}`;
+      const url = `${this.URL}/api/apick?username=${username}`;
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export class ApimanagerService {
   }
 
   getAllApicks(): Observable<any> {
-    const url = `http://localhost:3000/api/apick?active=true`;
+    const url = `${this.URL}/api/apick?active=true`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export class ApimanagerService {
     return this.http.get<any>(url, httpOptions);
   }
   getApickById(id: string): Observable<any> {
-    const url = `http://localhost:3000/api/apick?_id=${id}`;
+    const url = `${this.URL}/api/apick?_id=${id}`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export class ApimanagerService {
     return this.http.get<any>(url, httpOptions);
   }
   registerApick(apickData: any): Observable<any> {
-    const url = 'http://localhost:3000/api/apick';
+    const url = '${this.URL}/api/apick';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -66,11 +66,11 @@ export class ApimanagerService {
     return this.http.post<any>(url, apickData, httpOptions);
   }
   updateApickStatus(apickId: string, status: Boolean): Observable<any> {
-    const url = `http://localhost:3000/api/apick/${apickId}`;
+    const url = `${this.URL}/api/apick/${apickId}`;
     return this.http.put<any>(url, { active: status });
   }
   deleteEntireApick(apiName: string): Observable<any> {
-    const url = 'http://localhost:3000/api/apick';
+    const url = '${this.URL}/api/apick';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export class ApimanagerService {
       apickDataModified,
       apickDataOriginal,
     };
-    const url = 'http://localhost:3000/api/apick';
+    const url = '${this.URL}/api/apick';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -116,11 +116,11 @@ export class ApimanagerService {
     return this.http.post<any>(urlRequested, object, httpOptions);
   }
   getEndpointId(title: string, endpoint: string): Observable<any> {
-    const url = `http://localhost:3000/api/endpoint?title=${title}&endpoint=${endpoint}`;
+    const url = `${this.URL}/api/endpoint?title=${title}&endpoint=${endpoint}`;
     return this.http.get<any>(url);
   }
   registerEndpoint(endpoint: any): Observable<any> {
-    const url = 'http://localhost:3000/api/endpoint';
+    const url = '${this.URL}/api/endpoint';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -131,11 +131,11 @@ export class ApimanagerService {
 
   // CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS -- CUSTOMS
   getCustomizerById(idEndpoint: string, method: string): Observable<any> {
-    const url = `http://localhost:3000/api/custom?id=${idEndpoint}&method=${method}`;
+    const url = `${this.URL}/api/custom?id=${idEndpoint}&method=${method}`;
     return this.http.get<any>(url);
   }
   saveCustomizerData(customizerData: CustomizerStruct, newData: any) {
-    const url = `http://localhost:3000/api/custom/${customizerData._id}`;
+    const url = `${this.URL}/api/custom/${customizerData._id}`;
     return this.http.put<any>(url, newData);
   }
 
@@ -143,23 +143,23 @@ export class ApimanagerService {
   getApiKey(apiId: string, username: any): Observable<any> {
     let url;
     if (username) {
-      url = `http://localhost:3000/api/keys/${apiId}?username=${username}`;
+      url = `${this.URL}/api/keys/${apiId}?username=${username}`;
     } else {
-      url = `http://localhost:3000/api/keys/${apiId}`;
+      url = `${this.URL}/api/keys/${apiId}`;
     }
     return this.http.get<any>(url);
   }
   createApiKey(apiId: string): Observable<any> {
-    let url = `http://localhost:3000/api/keys`;
+    let url = `${this.URL}/api/keys`;
     return this.http.post<any>(url, { apiId: apiId });
   }
   createUserKey(apiId: string, username: any): Observable<any> {
-    let url = `http://localhost:3000/api/keys/${apiId}`;
+    let url = `${this.URL}/api/keys/${apiId}`;
 
     return this.http.post<any>(url, { username: username });
   }
   updateEnabledApiKey(apiId: string, status: boolean): Observable<any> {
-    let url = `http://localhost:3000/api/keys/${apiId}`;
+    let url = `${this.URL}/api/keys/${apiId}`;
     return this.http.put<any>(url, { keyEnabled: status });
   }
 }
