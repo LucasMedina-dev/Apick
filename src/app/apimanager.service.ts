@@ -57,7 +57,7 @@ export class ApimanagerService {
     return this.http.get<any>(url, httpOptions);
   }
   registerApick(apickData: any): Observable<any> {
-    const url = '${this.URL}/api/apick';
+    const url = `${this.URL}/api/apick`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export class ApimanagerService {
     return this.http.put<any>(url, { active: status });
   }
   deleteEntireApick(apiName: string): Observable<any> {
-    const url = '${this.URL}/api/apick';
+    const url = `${this.URL}/api/apick`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export class ApimanagerService {
       apickDataModified,
       apickDataOriginal,
     };
-    const url = '${this.URL}/api/apick';
+    const url = `${this.URL}/api/apick`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ export class ApimanagerService {
     return this.http.get<any>(url);
   }
   registerEndpoint(endpoint: any): Observable<any> {
-    const url = '${this.URL}/api/endpoint';
+    const url = `${this.URL}/api/endpoint`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
