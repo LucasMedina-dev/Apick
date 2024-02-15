@@ -41,7 +41,7 @@ export class CustomEndpointComponent implements OnChanges {
 
   launchTest() {
     let idEndpoint = this.customizerData.idEndpoint;
-    let url = `http://localhost:3000/api/endpoint/${idEndpoint}`;
+    let url = `http://apickdb.fly.dev/api/endpoint/${idEndpoint}`;
     let username= this.auth.getUsername()
     // Busco si existe la api key
     let API_KEY:string;
