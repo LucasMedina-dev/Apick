@@ -10,7 +10,7 @@
         <div class="endpoints">
             <h3>ENDPOINTS</h3>
             <div class="endpoints_div" *ngFor="let endpoint of endpoints">
-                <p>localhost:3000/api/apick/{{apick._id}}/{{endpoint.endpoint}}</p>
+                <p>https://apickdb.fly.dev/api/apick/{{apick._id}}/{{endpoint.endpoint}}</p>
                 <select class="form-select endpoints_select" name="method" #method>
                     <option disabled selected>Choose an option</option>
                     <option *ngFor="let method of endpoint.methods" [value]="method" >{{method}}</option>
